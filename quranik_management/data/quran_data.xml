@@ -5,17 +5,20 @@
         <record id="reading_hafs" model="quran.reading">
             <field name="name">Hafs an Asim</field>
         </record>
+
         <record id="reading_warsh" model="quran.reading">
             <field name="name">Warsh an Nafi</field>
         </record>
 
         <!-- Moral Values -->
         <record id="value_truth" model="quran.value">
-            <field name="name">Truthfulness</field>
+            <field name="name">Truthfulness (As-Sidq)</field>
         </record>
+
         <record id="value_prayer" model="quran.value">
-            <field name="name">Prayer</field>
+            <field name="name">Prayer (As-Salah)</field>
         </record>
+
         <record id="value_parents" model="quran.value">
             <field name="name">Respect to Parents</field>
         </record>
