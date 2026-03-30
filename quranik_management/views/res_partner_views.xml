@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_partner_form_quranik" model="ir.ui.view">
-            <name>res.partner.form.quranik</name>
-            <model>res.partner</model>
-            <inherit_id ref="base.view_partner_form"/>
-            <arch type="xml">
-                <xpath expr="//notebook" position="inside">
-                    <page string="Quranik Profile" name="quranik_profile">
-                        <group>
-                            <group string="Roles">
-                                <field name="is_teacher"/>
-                                <field name="is_student"/>
-                            </group>
-                            <group string="Account">
-                                <field name="session_credits"/>
-                                <field name="wallet_balance"/>
-                            </group>
-                        </group>
-                    </page>
-                </xpath>
-            </arch>
-        </record>
+     
     </data>
 </odoo>
