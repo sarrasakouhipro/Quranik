@@ -1,11 +1,30 @@
 {
     'name': 'Quranik Management',
     'version': '1.0',
-    'summary': 'Quran Teaching Management System for Teachers and Students',
-    'description': 'Manage Quran teachers, students, subscriptions, and moral values tracking.',
+    'summary': 'Quran Academy Management System (MVP)',
+    'description': """
+        Management module for Quranik.org:
+        - Profiles for Teachers (Readings, Bio, Languages)
+        - Profiles for Students (Credits, Progress)
+        - Quran Session Scheduling & Reporting
+        - Moral Values (Makarim Al-Akhlaq) Tracking
+        - Automated Meeting Links
+    """,
     'category': 'Education',
     'author': 'Quranik',
-    'depends': ['base', 'mail', 'calendar'],
+    'website': 'https://quranik.org',
+    'license': 'LGPL-3',
+    
+    # Dependencies: 
+    # 'mail' for tracking changes/chatter
+    # 'calendar' for scheduling integration
+    'depends': [
+        'base', 
+        'mail', 
+        'calendar'
+    ],
+    
+    # Data files loaded on installation/update
     'data': [
         'security/ir.model.access.csv',
         'data/quran_data.xml',
@@ -13,6 +32,13 @@
         'views/quran_session_views.xml',
         'views/menu_views.xml',
     ],
+    
+    # Demo data for testing (only loaded if 'Load Demo Data' is checked)
+    'demo': [
+        'demo/quran_demo.xml',
+    ],
+    
     'installable': True,
     'application': True,
+    'auto_install': False,
 }
