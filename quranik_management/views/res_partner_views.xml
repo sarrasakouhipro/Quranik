@@ -7,18 +7,7 @@
             <inherit_id ref="base.view_partner_form"/>
             <arch type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <page string="Quranik Profile" name="quranik_profile">
-                        <group>
-                            <group string="Roles">
-                                <field name="is_teacher"/>
-                                <field name="is_student"/>
-                            </group>
-                            <group string="Status">
-                                <field name="session_credits"/>
-                                <field name="wallet_balance"/>
-                            </group>
-                        </group>
-                    </page>
+                  
                 </xpath>
             </arch>
         </record>
