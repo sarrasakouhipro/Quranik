@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- A Teacher -->
+        <record id="demo_teacher_1" model="res.partner">
+            <field name="name">Sheikh Ahmed</field>
+            <field name="is_teacher" eval="True"/>
+            <field name="is_english_speaker" eval="True"/>
+            <field name="quran_reading_ids" eval="[(4, ref('reading_hafs'))]"/>
+            <field name="email">ahmed@example.com</field>
+            <field name="commission_rate">65.0</field>
+        </record>
+
+        <!-- A Student (Adult) -->
+        <record id="demo_student_1" model="res.partner">
+            <field name="name">Omar Ali</field>
+            <field name="is_student" eval="True"/>
+            <field name="session_credits">10</field>
+            <field name="email">omar@example.com</field>
+        </record>
+
+        <!-- A Sample Session -->
+        <record id="demo_session_1" model="quran.session">
+            <field name="teacher_id" ref="demo_teacher_1"/>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="start_datetime" eval="(datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="duration">1.0</field>
+            <field name="meeting_url">https://meet.jit.si/quranik-test-room</field>
+            <field name="state">draft</field>
+        </record>
+    </data>
+</odoo>

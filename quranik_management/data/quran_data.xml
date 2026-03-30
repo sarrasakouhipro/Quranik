@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Quran Readings -->
+        <record id="reading_hafs" model="quran.reading">
+            <field name="name" json_fixed='{"en_US": "Hafs an Asim", "ar_001": "حفص عن عاصم"}'>Hafs an Asim</field>
+        </record>
+        <record id="reading_warsh" model="quran.reading">
+            <field name="name" json_fixed='{"en_US": "Warsh an Nafi", "ar_001": "ورش عن نافع"}'>Warsh an Nafi</field>
+        </record>
+
+        <!-- Moral Values -->
+        <record id="value_truth" model="quran.value">
+            <field name="name" json_fixed='{"en_US": "Truthfulness", "ar_001": "الصدق"}'>Truthfulness</field>
+        </record>
+        <record id="value_prayer" model="quran.value">
+            <field name="name" json_fixed='{"en_US": "Prayer", "ar_001": "الصلاة"}'>Prayer</field>
+        </record>
+    </data>
+</odoo>

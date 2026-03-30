@@ -1,0 +1,24 @@
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_quranik_root" name="Quranik" sequence="10" web_icon="quranik_management,static/description/icon.png"/>
+
+    <!-- Sub-Menus -->
+    <menuitem id="menu_quranik_sessions" name="Sessions" parent="menu_quranik_root" action="action_quran_session" sequence="10"/>
+    <menuitem id="menu_quranik_teachers" name="Teachers" parent="menu_quranik_root" action="action_quran_teachers" sequence="20"/>
+    <menuitem id="menu_quranik_students" name="Students" parent="menu_quranik_root" action="action_quran_students" sequence="30"/>
+
+    <!-- Actions -->
+    <record id="action_quran_session" model="ir.actions.act_window">
+        <name>All Sessions</name>
+        <res_model>quran.session</res_model>
+        <view_mode>tree,form,calendar</view_mode>
+    </record>
+
+    <record id="action_quran_teachers" model="ir.actions.act_window">
+        <name>Teachers</name>
+        <res_model>res.partner</res_model>
+        <domain>[('is_teacher', '=', True)]</domain>
+        <context>{'default_is_teacher': True}</context>
+        <view_mode>kanban,tree,form</view_mode>
+    </record>
+</odoo>
