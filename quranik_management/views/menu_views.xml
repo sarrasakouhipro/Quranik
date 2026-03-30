@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Actions -->
+    <!-- 1. Actions First -->
     <record id="action_quran_session" model="ir.actions.act_window">
         <name>Sessions</name>
         <res_model>quran.session</res_model>
@@ -15,8 +15,18 @@
         <view_mode>kanban,tree,form</view_mode>
     </record>
 
-    <!-- Menus -->
+    <!-- 2. Menus Second -->
     <menuitem id="menu_quranik_root" name="Quranik" sequence="10"/>
-    <menuitem id="menu_quranik_sessions" name="Sessions" parent="menu_quranik_root" action="action_quran_session" sequence="10"/>
-    <menuitem id="menu_quranik_teachers" name="Teachers" parent="menu_quranik_root" action="action_quran_teachers" sequence="20"/>
+    
+    <menuitem id="menu_quranik_sessions" 
+              name="Sessions" 
+              parent="menu_quranik_root" 
+              action="action_quran_session" 
+              sequence="10"/>
+              
+    <menuitem id="menu_quranik_teachers" 
+              name="Teachers" 
+              parent="menu_quranik_root" 
+              action="action_quran_teachers" 
+              sequence="20"/>
 </odoo>
