@@ -1,53 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Tree View (The List) -->
-    <record id="view_quran_session_tree" model="ir.ui.view">
-        <name>quran.session.tree</name>
-        <model>quran.session</model>
-        <arch type="xml">
-            <tree string="Sessions" decoration-info="state == 'draft'" decoration-success="state == 'done'">
-                <field name="start_datetime"/>
-                <field name="teacher_id"/>
-                <field name="student_id"/>
-                <field name="state"/>
-            </tree>
-        </arch>
-    </record>
+    <data>
+        <record id="view_quran_session_tree" model="ir.ui.view">
+            <name>quran.session.tree</name>
+            <model.id ref="model_quran_session"/> <!-- Using model.id for safety -->
+            <model>quran.session</model>
+            <arch type="xml">
+                <tree string="Sessions">
+                    <field name="start_datetime"/>
+                    <field name="teacher_id"/>
+                    <field name="student_id"/>
+                    <field name="state"/>
+                </tree>
+            </arch>
+        </record>
 
-    <!-- Form View (The Detail) -->
-    <record id="view_quran_session_form" model="ir.ui.view">
-        <name>quran.session.form</name>
-        <model>quran.session</model>
-        <arch type="xml">
-            <form string="Quran Session">
-                <header>
-                    <button name="action_complete" string="Complete Session" type="object" class="oe_highlight" invisible="state != 'draft'"/>
-                    <field name="state" widget="statusbar"/>
-                </header>
-                <sheet>
-                    <group>
-                        <group string="Scheduling">
+        <record id="view_quran_session_form" model="ir.ui.view">
+            <name>quran.session.form</name>
+            <model>quran.session</model>
+            <arch type="xml">
+                <form string="Quran Session">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
                             <field name="teacher_id"/>
                             <field name="student_id"/>
                             <field name="start_datetime"/>
-                            <field name="duration" widget="float_time"/>
-                            <field name="meeting_url" widget="url"/>
                         </group>
-                        <group string="Pedagogy" invisible="state == 'draft'">
-                            <field name="technical_score"/>
-                            <field name="moral_value_ids" widget="many2many_tags"/>
-                        </group>
-                    </group>
-                    <notebook invisible="state == 'draft'">
-                        <page string="Progress Report">
-                            <field name="progress_details" placeholder="Which Surah/Ayat were covered?"/>
-                        </page>
-                        <page string="Homework">
-                            <field name="homework" placeholder="What should the student prepare?"/>
-                        </page>
-                    </notebook>
-                </sheet>
-            </form>
-        </arch>
-    </record>
+                    </sheet>
+                </form>
+            </arch>
+        </record>
+    </data>
 </odoo>
