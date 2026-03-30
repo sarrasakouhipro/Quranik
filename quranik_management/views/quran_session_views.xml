@@ -1,37 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_quran_session_tree" model="ir.ui.view">
-            <name>quran.session.tree</name>
-            <model.id ref="model_quran_session"/> <!-- Using model.id for safety -->
-            <model>quran.session</model>
-            <arch type="xml">
-                <tree string="Sessions">
-                    <field name="start_datetime"/>
-                    <field name="teacher_id"/>
-                    <field name="student_id"/>
-                    <field name="state"/>
-                </tree>
-            </arch>
-        </record>
-
-        <record id="view_quran_session_form" model="ir.ui.view">
-            <name>quran.session.form</name>
-            <model>quran.session</model>
-            <arch type="xml">
-                <form string="Quran Session">
-                    <header>
-                        <field name="state" widget="statusbar"/>
-                    </header>
-                    <sheet>
-                        <group>
-                            <field name="teacher_id"/>
-                            <field name="student_id"/>
-                            <field name="start_datetime"/>
-                        </group>
-                    </sheet>
-                </form>
-            </arch>
-        </record>
+      
     </data>
 </odoo>
