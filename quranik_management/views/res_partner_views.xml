@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_partner_form_quranik" model="ir.ui.view">
-        <name>res.partner.form.quranik</name>
-        <model>res.partner</model>
-        <inherit_id ref="base.view_partner_form"/>
-        <arch type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Quranik Profile" name="quranik_profile">
-                    <group>
-                        <group string="Roles">
-                            <field name="is_teacher"/>
-                            <field name="is_student"/>
+    <data>
+        <record id="view_partner_form_quranik" model="ir.ui.view">
+            <name>res.partner.form.quranik</name>
+            <model>res.partner</model>
+            <inherit_id ref="base.view_partner_form"/>
+            <arch type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Quranik Profile" name="quranik_profile">
+                        <group>
+                            <group string="Roles">
+                                <field name="is_teacher"/>
+                                <field name="is_student"/>
+                            </group>
+                            <group string="Account">
+                                <field name="session_credits"/>
+                                <field name="wallet_balance"/>
+                            </group>
                         </group>
-                        <group string="Account" invisible="not is_student and not is_teacher">
-                            <field name="session_credits" invisible="not is_student"/>
-                            <field name="wallet_balance" invisible="not is_teacher"/>
-                        </group>
-                    </group>
-                    <group string="Teacher Skills" invisible="not is_teacher">
-                        <field name="is_english_speaker"/>
-                        <field name="quran_reading_ids" widget="many2many_tags"/>
-                        <field name="commission_rate"/>
-                        <field name="teacher_bio"/>
-                    </group>
-                </page>
-            </xpath>
-        </arch>
-    </record>
+                    </page>
+                </xpath>
+            </arch>
+        </record>
+    </data>
 </odoo>
