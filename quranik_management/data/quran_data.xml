@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-     
+        <!-- Quran Readings -->
+        <record id="reading_hafs" model="quran.reading">
+            <field name="name">Hafs an Asim</field>
+        </record>
+        <record id="reading_warsh" model="quran.reading">
+            <field name="name">Warsh an Nafi</field>
+        </record>
+
+        <!-- Moral Values -->
+        <record id="value_truth" model="quran.value">
+            <field name="name">Truthfulness (As-Sidq)</field>
+        </record>
+        <record id="value_prayer" model="quran.value">
+            <field name="name">Prayer (As-Salah)</field>
+        </record>
     </data>
 </odoo>
