@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_partner_form_quranik" model="ir.ui.view">
-            <name>res.partner.form.quranik</name>
-            <model>res.partner</model>
-            <inherit_id ref="base.view_partner_form"/>
-            <arch type="xml">
-                <xpath expr="//notebook" position="inside">
-                    <page string="Quranik Profile" name="quranik_profile">
-                        <group>
-                            <group string="Roles">
-                                <field name="is_teacher"/>
-                                <field name="is_student"/>
-                            </group>
-                            <group string="Stats">
-                                <field name="session_credits"/>
-                                <field name="wallet_balance"/>
-                            </group>
+    <record id="view_partner_form_quranik" model="ir.ui.view">
+        <name>res.partner.form.quranik</name>
+        <model>res.partner</model>
+        <inherit_id ref="base.view_partner_form"/>
+        <arch type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Quranik Profile" name="quranik_profile">
+                    <group>
+                        <group string="Identity">
+                            <field name="is_teacher"/>
+                            <field name="is_student"/>
                         </group>
-                        <group string="Teacher Details" invisible="not is_teacher">
-                            <field name="is_english_speaker"/>
-                            <field name="quran_reading_ids" widget="many2many_tags"/>
-                            <field name="commission_rate"/>
+                        <group string="Status">
+                            <field name="session_credits"/>
+                            <field name="wallet_balance"/>
                         </group>
-                    </page>
-                </xpath>
-            </arch>
-        </record>
-    </data>
+                    </group>
+                    <group string="Teacher Settings">
+                        <field name="is_english_speaker"/>
+                        <field name="commission_rate"/>
+                    </group>
+                </page>
+            </xpath>
+        </arch>
+    </record>
 </odoo>
