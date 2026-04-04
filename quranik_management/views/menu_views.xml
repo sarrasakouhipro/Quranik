@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-     
+        <record id="action_quran_session" model="ir.actions.act_window">
+            <field name="name">Sessions</field>
+            <field name="res_model">quran.session</field>
+            <field name="view_mode">calendar,tree,form</field>
+        </record>
+        
+        <!-- (Rest of your teachers action and menus remain the same) -->
     </data>
 </odoo>
