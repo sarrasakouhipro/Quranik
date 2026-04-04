@@ -77,7 +77,6 @@ Main Features:
         'data/public_data.xml',
         'views/appointment_views.xml',
         'views/dashboard_views.xml',
-        'views/appointment_settings_sms_view.xml',
         'views/appointment_schedule_settings_view.xml',
         'views/portal_errore_submit_template.xml',
         'views/portal_appointment_template.xml',
