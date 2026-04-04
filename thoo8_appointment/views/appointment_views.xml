@@ -49,11 +49,11 @@
                             <field name="mobile"/>
                             <field name="mobile_other"/>
                             <field name="use_schedule" widget="boolean_toggle"
-                                   groups="thoo8_appointment.group_thoo8_appointment_manage,thoo8_appointment.group_thoo8_appointment_full_access"/>
+                                   
                             <field name="service_type_id"/>
                             <field name="department"/>
                             <field name="appointment_date" attrs="{'invisible': [('use_schedule', '=', True)]}"
-                                   groups="thoo8_appointment.group_thoo8_appointment_manage,thoo8_appointment.group_thoo8_appointment_full_access"/>
+                                   
                             <field name="slot_id"
                                    attrs="{'invisible': ['|', ('use_schedule', '=', False), ('slot_message','!=',False)],
                                            'readonly': [('slot_message','!=',False)]}"/>
