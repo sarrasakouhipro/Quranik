@@ -71,7 +71,7 @@ class Appointment(models.Model):
 
         rec = super(Appointment, self).create(vals)
         slot.is_booked = True
-        send_sms = rec._send_sms_notification('create')
+        # send_sms = rec._send_sms_notification('create')
 
         return rec
 
@@ -164,35 +164,7 @@ class Appointment(models.Model):
 
             return {'domain': domain}
 
-    def get_settings_sms(self):
-        return self.env['thoo8.appointment.settings_sms'].search([], limit=1)
-
-    # working fine with "masegat" provider
-    def template_sms_resulte(self, status, response_list):
-
-        response = response_list or {}
-
-        if not isinstance(response, dict):
-            response = {}
-
-        # الوصول للقيم بأمان
-        code = response.get('code', '')
-        message = response.get('message', '')
-        sms_mobile = response.get('mobile', '')
-        sms_text = response.get('message_text', '')
-
-        self.sudo().message_post(
-            body=(
-                     "<b>📩 تفاصيل إرسال الرسالة النصية</b>"
-                     "<ul>"
-                     "<li>رمز الاستجابة: %s</li>"
-                     "<li>رسالة الاستجابة: %s</li>"
-                     "<li>سبب الإرسال: %s</li>"
-                     "<li>رقم الجوال: %s</li>"
-                     "<li>نص الرسالة:<br>%s</li>"
-                     "</ul>"
-                 ) % (code, message, status, sms_mobile, sms_text)
-        )
+    
 
     @api.constrains('id_card', 'service_type_id', 'state')
     def _check_duplicate_reservation(self):
@@ -242,81 +214,7 @@ class Appointment(models.Model):
                 if not re.fullmatch(r'05\d{8}', rec.mobile):
                     raise ValidationError(_("Mobile number must be 10 digits long and start with 05."))
 
-    # استكمال الدالة وتوسيعها لتشمل باقي العمليات من خلال تمرير نوع العملية
-    def _send_sms_notification(self, satus):
-        settings = self.get_settings_sms()
-
-        if not settings:
-            return
-
-        _date = self.appointment_date.strftime('%Y-%m-%d') if self.appointment_date else ''
-        _time = self.appointment_date.strftime('%H:%M') if self.appointment_date else ''
-
-        if satus == 'create' and settings.enable_create_sms:
-            message = settings.create_sms_template.format(
-                order_number=self.name or '',
-                name=self.beneficiary_name or '',
-                id_card=self.id_card or '',
-                mobile=self.mobile or ''
-            )
-            send_sms = True
-
-        if satus == 'confirm' and settings.enable_confirm_sms:
-            message = settings.confirm_sms_template.format(
-                order_number=self.name or '',
-                name=self.beneficiary_name or '',
-                id_card=self.id_card or '',
-                mobile=self.mobile or '',
-                date=_date,
-                time=_time
-            )
-            send_sms = True
-
-        if satus == 'confirm_portal' and settings.enable_portal_confirm_sms:
-            message = settings.confirm_portal_sms_template.format(
-                order_number=self.name or '',
-                name=self.beneficiary_name or '',
-                id_card=self.id_card or '',
-                mobile=self.mobile or '',
-                date=_date,
-                time=_time
-            )
-            send_sms = True
-
-        if satus == 'cancel' and settings.enable_cancel_sms:
-            message = settings.cancel_sms_template.format(
-                order_number=self.name or '',
-                name=self.beneficiary_name or '',
-                id_card=self.id_card or '',
-                mobile=self.mobile or '',
-                cancel_reason=self.cancel_reason.name or '',
-                date=_date,
-                time=_time
-            )
-            send_sms = True
-
-        if send_sms:
-            sms_send = self._send_sms(self.mobile, message)
-            self.template_sms_resulte(satus, sms_send)
-            return sms_send
-
-    def _send_sms(self, phone, message):
-
-        provider = self.env['ir.config_parameter'].sudo().get_param("thoo8_sms.default_provider_id")
-        response = {}
-
-        if provider:
-            # using thoo8_sms_gateway
-            response = self.env['thoo8.sms.provider'].send_sms(phone, message)
-
-            response.update({
-                'mobile': phone,
-                'message_text': message
-            })
-
-            print(response)
-
-        return response
+   
 
     def action_cancelled(self):
         for rec in self:
@@ -328,13 +226,11 @@ class Appointment(models.Model):
                 selected_date = ""
                 formatted_datetime_ar = ""
 
-            settings_sms = self.sudo().get_settings_sms()
 
             context = {
                 'default_appointment_id': rec.id,
                 'default_selected_date': str(selected_date),
                 'default_formatted_datetime_ar': formatted_datetime_ar,
-                'default_enable_cancel_sms': settings_sms.enable_cancel_sms,
                 'default_slot_id': rec.slot_id.id
             }
 
@@ -347,9 +243,6 @@ class Appointment(models.Model):
                 'context': context
             }
 
-    def _cancel_appointment(self, send_sms=False):
-        if send_sms:
-            self._send_sms_notification('cancel')
 
     def action_confirmed(self):
         for rec in self:
@@ -363,7 +256,6 @@ class Appointment(models.Model):
             selected_date = appointment_date.date()
             show_date = selected_date < today
 
-            settings_sms = self.get_settings_sms()
 
             context = {
                 'default_appointment_id': rec.id,
@@ -372,7 +264,6 @@ class Appointment(models.Model):
                 'default_appointment_date': appointment_date,
                 'default_user_id': rec.id,
                 'default_formatted_datetime_ar': formatted_datetime_ar,
-                'default_enable_confirm_sms': settings_sms.enable_confirm_sms
             }
 
             return {
@@ -386,8 +277,8 @@ class Appointment(models.Model):
 
     def _confirm_appointment(self, send_sms=False):
         self.write({'state': 'confirmed'})
-        if send_sms:
-            self._send_sms_notification('confirm')
+        #if send_sms:
+            #self._send_sms_notification('confirm')
 
     def action_completed(self):
 
@@ -438,32 +329,6 @@ class Appointment(models.Model):
     @api.onchange('slot_id')
     def _onchange_slot_id(self):
         self.appointment_date = self.slot_id.slot_datetime
-
-    # now we're not using this function, but it's working fine
-    def action_send_sms_confirmation(self, template_id=None):
-        """Send confirmation SMS to requester using SMS provider"""
-
-        mobile = self.mobile
-        if not mobile:
-            raise UserError("رقم الجوال غير موجود.")
-
-        # الرسالة
-        if template_id:
-            # لو اخترنا قالب معين
-            template = self.env['thoo8.sms.template'].browse(template_id)
-            if not template.exists():
-                raise UserError("القالب غير موجود.")
-            message = template.render_template(self.id)
-        else:
-            # بدون قالب → نص يدوي
-            message = f"مرحباً {self.beneficiary_name}, تم حجز موعدك بتاريخ {self.appointment_date}."
-            print(message)
-
-        # استدعاء مزود الرسائل
-        response = self.env['thoo8.sms.provider'].send_sms(mobile, message)
-        print(response)
-
-        return response
 
     def action_open_assign_wizard(self):
 
