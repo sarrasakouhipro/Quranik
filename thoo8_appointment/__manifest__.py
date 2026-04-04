@@ -67,7 +67,6 @@ Main Features:
         'portal',
         'website',
         'mail',
-        'thoo8_sms_gateway',
     ],
     'data': [
         'security/appointment_security.xml',
