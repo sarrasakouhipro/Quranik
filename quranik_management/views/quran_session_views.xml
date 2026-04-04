@@ -16,11 +16,11 @@
             <field name="name">quran.session.tree</field>
             <field name="model">quran.session</field>
             <field name="arch" type="xml">
-                <tree string="Sessions" decoration-success="state == 'done'" decoration-info="state == 'draft'">
+                <tree string="Sessions">
                     <field name="start_datetime"/>
                     <field name="teacher_id"/>
                     <field name="student_id"/>
-                    <field name="state" widget="badge"/>
+                    <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state == 'draft'"/>
                 </tree>
             </field>
         </record>
@@ -31,8 +31,12 @@
             <field name="arch" type="xml">
                 <form string="Quran Session">
                     <header>
-                        <button name="action_complete" string="Validate &amp; Deduct Credit" type="object" class="oe_highlight" invisible="state != 'draft'"/>
-                        <button name="action_cancel" string="Cancel" type="object" invisible="state not in ['draft']"/>
+                        <button name="action_complete" string="Validate &amp; Deduct Credit" 
+                                type="object" class="oe_highlight" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="action_cancel" string="Cancel" 
+                                type="object" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
