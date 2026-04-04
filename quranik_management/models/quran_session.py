@@ -23,22 +23,7 @@ class QuranSession(models.Model):
         ('cancel', 'Cancelled')
     ], default='draft', tracking=True)
 
-    # --- Constraints ---
-    @api.constrains('teacher_id', 'start_datetime', 'duration')
-    def _check_teacher_overlap(self):
-        for record in self:
-            # Search for sessions for the same teacher that overlap the current time range
-            overlap = self.search([
-                ('id', '!=', record.id),
-                ('teacher_id', '=', record.teacher_id.id),
-                ('state', '!=', 'cancel'),
-                ('start_datetime', '<', record.end_datetime),
-                ('end_datetime', '>', record.start_datetime),
-            ])
-            if overlap:
-                raise ValidationError(_("This teacher already has a session scheduled during this time!"))
-
-    # --- Compute Fields ---
+    # Logic for overlap and credits
     @api.depends('start_datetime', 'duration')
     def _compute_end_datetime(self):
         for record in self:
@@ -47,15 +32,20 @@ class QuranSession(models.Model):
             else:
                 record.end_datetime = False
 
-    # --- Actions ---
     def action_complete(self):
         for record in self:
             if record.student_id.session_credits <= 0:
-                raise ValidationError(_("The student has no remaining credits to complete this session!"))
-            
-            # Deduct 1 credit
+                raise ValidationError(_("The student has no remaining credits!"))
             record.student_id.session_credits -= 1
             record.write({'state': 'done'})
-            
-    def action_cancel(self):
-        self.write({'state': 'cancel'})
+
+# --- THESE MODELS MUST BE DEFINED HERE ---
+class QuranReading(models.Model):
+    _name = 'quran.reading'
+    _description = "Quran Reading"
+    name = fields.Char(string="Name", required=True, translate=True)
+
+class QuranValue(models.Model):
+    _name = 'quran.value'
+    _description = "Moral Value"
+    name = fields.Char(string="Name", required=True, translate=True)
