@@ -1,6 +1,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import timedelta
+import uuid
+
 
 class QuranSession(models.Model):
     _name = 'quran.session'
@@ -47,6 +49,15 @@ class QuranSession(models.Model):
 
     def action_cancel(self):
         self.write({'state': 'cancel'})
+
+
+    @api.model
+    def create(self, vals):
+        # Générer un identifiant unique pour la salle de réunion
+        session_uuid = uuid.uuid4().hex[:10]
+        # On utilise Jitsi pour la facilité (pas d'API payante)
+        vals['meeting_url'] = f"https://meet.jit.si/Quranik_{session_uuid}"
+        return super(QuranSession, self).create(vals)
 
 class QuranReading(models.Model):
     _name = 'quran.reading'
