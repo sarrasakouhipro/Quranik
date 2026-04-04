@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Calendar View -->
+        <record id="view_quran_session_calendar" model="ir.ui.view">
+            <field name="name">quran.session.calendar</field>
+            <field name="model">quran.session</field>
+            <field name="arch" type="xml">
+                <calendar string="Quran Sessions" 
+                          date_start="start_datetime" 
+                          date_stop="end_datetime" 
+                          color="teacher_id">
+                    <field name="student_id"/>
+                    <field name="teacher_id"/>
+                </calendar>
+            </field>
+        </record>
+
         <!-- Tree View -->
         <record id="view_quran_session_tree" model="ir.ui.view">
             <field name="name">quran.session.tree</field>
@@ -10,7 +25,7 @@
                     <field name="start_datetime"/>
                     <field name="teacher_id"/>
                     <field name="student_id"/>
-                    <field name="state"/>
+                    <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state == 'draft'"/>
                 </tree>
             </field>
         </record>
@@ -22,15 +37,97 @@
             <field name="arch" type="xml">
                 <form string="Quran Session">
                     <header>
+                        <button name="action_complete" string="Validate &amp; Deduct Credit" 
+                                type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_cancel" string="Cancel" 
+                                type="object" invisible="state not in ['draft']"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <group>
-                            <field name="teacher_id"/>
-                            <field name="student_id"/>
-                            <field name="start_datetime"/>
+                            <group string="Schedule">
+                                <field name="teacher_id"/>
+                                <field name="student_id"/>
+                                <field name="start_datetime"/>
+                                <field name="duration" widget="float_time"/>
+                                <field name="end_datetime" invisible="1"/>
+                            </group>
+                            <group string="Meeting">
+                                <field name="meeting_url" widget="url"/>
+                            </group>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo><?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Calendar View -->
+        <record id="view_quran_session_calendar" model="ir.ui.view">
+            <field name="name">quran.session.calendar</field>
+            <field name="model">quran.session</field>
+            <field name="arch" type="xml">
+                <calendar string="Quran Sessions" 
+                          date_start="start_datetime" 
+                          date_stop="end_datetime" 
+                          color="teacher_id">
+                    <field name="student_id"/>
+                    <field name="teacher_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_quran_session_tree" model="ir.ui.view">
+            <field name="name">quran.session.tree</field>
+            <field name="model">quran.session</field>
+            <field name="arch" type="xml">
+                <tree string="Sessions">
+                    <field name="start_datetime"/>
+                    <field name="teacher_id"/>
+                    <field name="student_id"/>
+                    <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state == 'draft'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_quran_session_form" model="ir.ui.view">
+            <field name="name">quran.session.form</field>
+            <field name="model">quran.session</field>
+            <field name="arch" type="xml">
+                <form string="Quran Session">
+                    <header>
+                        <button name="action_complete" string="Validate &amp; Deduct Credit" 
+                                type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_cancel" string="Cancel" 
+                                type="object" invisible="state not in ['draft']"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Schedule">
+                                <field name="teacher_id"/>
+                                <field name="student_id"/>
+                                <field name="start_datetime"/>
+                                <field name="duration" widget="float_time"/>
+                                <field name="end_datetime" invisible="1"/>
+                            </group>
+                            <group string="Meeting">
+                                <field name="meeting_url" widget="url"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
