@@ -48,11 +48,11 @@
                             <field name="id_card"/>
                             <field name="mobile"/>
                             <field name="mobile_other"/>
-                            <field name="use_schedule" widget="boolean_toggle"
+                            <field name="use_schedule" widget="boolean_toggle"/>
                                    
                             <field name="service_type_id"/>
                             <field name="department"/>
-                            <field name="appointment_date" attrs="{'invisible': [('use_schedule', '=', True)]}"
+                            <field name="appointment_date" attrs="{'invisible': [('use_schedule', '=', True)]}"/>
                                    
                             <field name="slot_id"
                                    attrs="{'invisible': ['|', ('use_schedule', '=', False), ('slot_message','!=',False)],
