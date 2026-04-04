@@ -5,8 +5,37 @@
             <field name="name">Sessions</field>
             <field name="res_model">quran.session</field>
             <field name="view_mode">calendar,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Planifiez votre première séance de Coran !
+                </p>
+            </field>
         </record>
-        
-        <!-- (Rest of your teachers action and menus remain the same) -->
+
+        <record id="action_quran_teachers" model="ir.actions.act_window">
+            <field name="name">Teachers</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('is_teacher', '=', True)]</field>
+            <field name="context">{'default_is_teacher': True}</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="menu_quranik_root" 
+                  name="Quranik" 
+                  web_icon="base,static/description/icon.png" 
+                  action="action_quran_session"
+                  sequence="1"/>
+
+        <menuitem id="menu_quranik_sessions_sub" 
+                  name="Sessions" 
+                  parent="menu_quranik_root" 
+                  action="action_quran_session" 
+                  sequence="10"/>
+
+        <menuitem id="menu_quranik_teachers_sub" 
+                  name="Teachers" 
+                  parent="menu_quranik_root" 
+                  action="action_quran_teachers" 
+                  sequence="20"/>
     </data>
 </odoo>
