@@ -15,7 +15,7 @@
                         <group>
                             <field name="start_time"/>
                             <field name="end_time"/>
-                            <field name="start_date" options="{'datepicker': {'min_date': 'context_today'}}" required="1"/>
+                            <field name="start_date" options="{'datepicker': {'daysOfWeekDisabled': [], 'minDate': 'today'}}"/>
                             <field name="end_date" required="1" attrs="{'invisible': [('start_date', '=', False)]}"/>
                         </group>
                     </group>
