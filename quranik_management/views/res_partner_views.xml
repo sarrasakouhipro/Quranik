@@ -9,14 +9,18 @@
                 <xpath expr="//notebook" position="inside">
                     <page string="Quranik Profile" name="quranik_profile">
                         <group>
-                            <group string="Identity Roles">
+                            <group string="Roles">
                                 <field name="is_teacher"/>
                                 <field name="is_student"/>
                             </group>
-                            <group string="Account Status">
-                                <field name="session_credits"/>
-                                <field name="wallet_balance"/>
+                            <group string="Stats">
+                                <field name="session_credits" attrs="{'invisible': [('is_student', '=', False)]}"/>
+                                <field name="wallet_balance" attrs="{'invisible': [('is_teacher', '=', False)]}"/>
                             </group>
+                        </group>
+                        <group string="Teacher Settings" attrs="{'invisible': [('is_teacher', '=', False)]}">
+                            <field name="is_english_speaker"/>
+                            <field name="commission_rate"/>
                         </group>
                     </page>
                 </xpath>
