@@ -38,30 +38,3 @@ class ResConfigSettings(models.TransientModel):
         if not params.get_param('thoo8.appointment.request.enable_id_card_verification'):
             params.set_param('thoo8.appointment.request.enable_id_card_verification', True)
 
-    @api.onchange('enable_mobile_verification')
-    def _check_sms_gateway_dependency(self):
-        """ Ensure SMS Gateway module is installed and a provider is selected """
-        if self.enable_mobile_verification:
-            # تحقق من وجود الموديول
-            module = self.env['ir.module.module'].search([('name', '=', 'thoo8_sms_gateway')], limit=1)
-            if not module or module.state != 'installed':
-                self.enable_mobile_verification = False
-                return {
-                    'warning': {
-                        'title': _("Dependency Error"),
-                        'message': _(
-                            "You must install and activate the 'THOO8 SMS Gateway' module before enabling mobile verification."),
-                    }
-                }
-
-            # تحقق من اختيار مزود SMS
-            provider_id = self.env['ir.config_parameter'].sudo().get_param("thoo8_sms.default_provider_id")
-            if not provider_id:
-                self.enable_mobile_verification = False
-                return {
-                    'warning': {
-                        'title': _("Missing SMS Provider"),
-                        'message': _(
-                            "Please select a default SMS Provider in the SMS Gateway settings before enabling mobile verification."),
-                    }
-                }
