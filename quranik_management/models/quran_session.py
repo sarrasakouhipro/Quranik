@@ -23,7 +23,13 @@ class QuranSession(models.Model):
         ('cancel', 'Cancelled')
     ], default='draft', tracking=True)
 
-    # Logic for overlap and credits
+    progress_details = fields.Text(string="Progress Details")
+    homework = fields.Text(string="Homework")
+    technical_score = fields.Selection([
+        ('1', 'Beginner'), ('2', 'Fair'), ('3', 'Good'), ('4', 'Excellent')
+    ], string="Technical Rating")
+    moral_value_ids = fields.Many2many('quran.value', string="Moral Values")
+
     @api.depends('start_datetime', 'duration')
     def _compute_end_datetime(self):
         for record in self:
@@ -39,13 +45,15 @@ class QuranSession(models.Model):
             record.student_id.session_credits -= 1
             record.write({'state': 'done'})
 
-# --- THESE MODELS MUST BE DEFINED HERE ---
+    def action_cancel(self):
+        self.write({'state': 'cancel'})
+
 class QuranReading(models.Model):
     _name = 'quran.reading'
     _description = "Quran Reading"
-    name = fields.Char(string="Name", required=True, translate=True)
+    name = fields.Char(string="Name", required=True)
 
 class QuranValue(models.Model):
     _name = 'quran.value'
     _description = "Moral Value"
-    name = fields.Char(string="Name", required=True, translate=True)
+    name = fields.Char(string="Name", required=True)
