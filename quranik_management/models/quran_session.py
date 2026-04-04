@@ -1,15 +1,19 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+from datetime import timedelta
 
 class QuranSession(models.Model):
     _name = 'quran.session'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Quran Session"
 
-    teacher_id = fields.Many2one('res.partner', string="Teacher", domain=[('is_teacher', '=', True)])
-    student_id = fields.Many2one('res.partner', string="Student", domain=[('is_student', '=', True)])
+    teacher_id = fields.Many2one('res.partner', string="Teacher", domain=[('is_teacher', '=', True)], required=True)
+    student_id = fields.Many2one('res.partner', string="Student", domain=[('is_student', '=', True)], required=True)
     
-    start_datetime = fields.Datetime(string="Start Time", required=True)
-    duration = fields.Float(string="Duration (Hours)", default=1.0)
+    start_datetime = fields.Datetime(string="Start Time", required=True, tracking=True)
+    duration = fields.Float(string="Duration (Hours)", default=1.0, required=True)
+    end_datetime = fields.Datetime(string="End Time", compute="_compute_end_datetime", store=True)
+    
     meeting_url = fields.Char(string="Meeting Link")
 
     state = fields.Selection([
@@ -18,22 +22,40 @@ class QuranSession(models.Model):
         ('absent', 'Student Absent'),
         ('cancel', 'Cancelled')
     ], default='draft', tracking=True)
-    
-    progress_details = fields.Text(string="Progress (Surah/Ayat)", translate=True)
-    technical_score = fields.Selection([
-        ('1', 'Beginner'), ('2', 'Fair'), ('3', 'Good'), ('4', 'Excellent')
-    ], string="Technical Rating")
-    
-    moral_value_ids = fields.Many2many('quran.value', string="Moral Values Focus")
-    homework = fields.Text(string="Next Homework", translate=True)
 
-# N'oubliez pas d'ajouter ces classes aussi si elles sont dans le même fichier
-class QuranReading(models.Model):
-    _name = 'quran.reading'
-    _description = "Quran Reading"
-    name = fields.Char(string="Name", required=True, translate=True)
+    # --- Constraints ---
+    @api.constrains('teacher_id', 'start_datetime', 'duration')
+    def _check_teacher_overlap(self):
+        for record in self:
+            # Search for sessions for the same teacher that overlap the current time range
+            overlap = self.search([
+                ('id', '!=', record.id),
+                ('teacher_id', '=', record.teacher_id.id),
+                ('state', '!=', 'cancel'),
+                ('start_datetime', '<', record.end_datetime),
+                ('end_datetime', '>', record.start_datetime),
+            ])
+            if overlap:
+                raise ValidationError(_("This teacher already has a session scheduled during this time!"))
 
-class QuranValue(models.Model):
-    _name = 'quran.value'
-    _description = "Moral Value"
-    name = fields.Char(string="Name", required=True, translate=True)
+    # --- Compute Fields ---
+    @api.depends('start_datetime', 'duration')
+    def _compute_end_datetime(self):
+        for record in self:
+            if record.start_datetime:
+                record.end_datetime = record.start_datetime + timedelta(hours=record.duration)
+            else:
+                record.end_datetime = False
+
+    # --- Actions ---
+    def action_complete(self):
+        for record in self:
+            if record.student_id.session_credits <= 0:
+                raise ValidationError(_("The student has no remaining credits to complete this session!"))
+            
+            # Deduct 1 credit
+            record.student_id.session_credits -= 1
+            record.write({'state': 'done'})
+            
+    def action_cancel(self):
+        self.write({'state': 'cancel'})
