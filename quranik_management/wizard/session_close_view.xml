@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_quran_session_close_wizard_form" model="ir.ui.view">
+        <field name="name">quran.session.close.wizard.form</field>
+        <field name="model">quran.session.close.wizard</field>
+        <field name="arch" type="xml">
+            <form string="End Session Notes">
+                <group>
+                    <field name="technical_score"/>
+                    <field name="progress_notes" placeholder="What was studied today?"/>
+                    <field name="homework" placeholder="What should the student prepare?"/>
+                </group>
+                <footer>
+                    <button name="action_confirm_close" string="Finish &amp; Send Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
