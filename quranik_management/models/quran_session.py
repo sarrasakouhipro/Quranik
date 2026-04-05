@@ -59,6 +59,11 @@ class QuranSession(models.Model):
         vals['meeting_url'] = f"https://meet.jit.si/Quranik_{session_uuid}"
         return super(QuranSession, self).create(vals)
 
+    def action_send_reminder(self):
+        template = self.env.ref('quranik_management.email_template_quran_session_reminder')
+        for record in self:
+            template.send_mail(record.id, force_send=True)
+
 class QuranReading(models.Model):
     _name = 'quran.reading'
     _description = "Quran Reading"
