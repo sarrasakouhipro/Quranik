@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <button name="action_send_reminder" string="Send Link by Email" type="object" class="btn-secondary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
 
         <record id="view_quran_session_calendar" model="ir.ui.view">
             <field name="name">quran.session.calendar</field>
@@ -33,6 +32,8 @@
             <field name="arch" type="xml">
                 <form string="Quran Session">
                     <header>
+                        <button name="action_send_reminder" string="Send Link by Email" type="object" class="btn-secondary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+
                         <button name="action_complete" string="Validate &amp; Deduct Credit" 
                                 type="object" class="oe_highlight" 
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"/>
