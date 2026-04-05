@@ -30,7 +30,7 @@
         'views/res_partner_views.xml',
         'views/quran_session_views.xml',
         'views/menu_views.xml',
-        'mail_template_data.xml',
+        'data/mail_template_data.xml',
     ],
     
     # Demo data for testing (only loaded if 'Load Demo Data' is checked)
