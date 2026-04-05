@@ -50,7 +50,7 @@
                         <button name="action_cancel" string="Cancel" 
                                 type="object" 
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"/>
-                        <field name="state" widget="statusbar"/>
+                        
                     </header>
                     <sheet>
                         <group>
