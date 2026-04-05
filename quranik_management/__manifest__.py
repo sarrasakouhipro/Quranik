@@ -27,10 +27,11 @@
     'data': [
         'security/ir.model.access.csv',
         'data/quran_data.xml',
+        'data/mail_template_data.xml',
+        'wizard/session_close_view.xml',
         'views/res_partner_views.xml',
         'views/quran_session_views.xml',
-        'views/menu_views.xml',
-        'data/mail_template_data.xml',
+        'views/menu_views.xml',        
     ],
     
     # Demo data for testing (only loaded if 'Load Demo Data' is checked)
