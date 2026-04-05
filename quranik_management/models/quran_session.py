@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-from datetime import timedelta
+import datetime 
 import uuid
 
 
@@ -20,6 +20,7 @@ class QuranSession(models.Model):
 
     state = fields.Selection([
         ('draft', 'Scheduled'),
+        ('in_progress', 'In Progress'),
         ('done', 'Completed'),
         ('absent', 'Student Absent'),
         ('cancel', 'Cancelled')
@@ -32,6 +33,10 @@ class QuranSession(models.Model):
     ], string="Technical Rating")
     moral_value_ids = fields.Many2many('quran.value', string="Moral Values")
 
+    actual_start_time = fields.Datetime(string="Actual Start", readonly=True)
+    actual_end_time = fields.Datetime(string="Actual End", readonly=True)
+    duration_minutes = fields.Integer(string="Duration (min)", compute="_compute_duration")
+    
     @api.depends('start_datetime', 'duration')
     def _compute_end_datetime(self):
         for record in self:
@@ -63,6 +68,39 @@ class QuranSession(models.Model):
         template = self.env.ref('quranik_management.email_template_quran_session_reminder')
         for record in self:
             template.send_mail(record.id, force_send=True)
+
+
+    @api.depends('actual_start_time', 'actual_end_time')
+    def _compute_duration(self):
+        for rec in self:
+            if rec.actual_start_time and rec.actual_end_time:
+                diff = rec.actual_end_time - rec.actual_start_time
+                rec.duration_minutes = int(diff.total_seconds() / 60)
+            else:
+                rec.duration_minutes = 0
+
+    def action_start_session(self):
+        """Démarre la séance, enregistre l'heure et ouvre Jitsi"""
+        self.write({
+            'state': 'in_progress',
+            'actual_start_time': fields.Datetime.now()
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'url': self.meeting_url,
+            'target': 'new',
+        }
+
+    def action_open_close_wizard(self):
+        """Ouvre la fenêtre pour noter les devoirs et terminer la séance"""
+        return {
+            'name': _('End Session Notes'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'quran.session.close.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_session_id': self.id}
+        }
 
 class QuranReading(models.Model):
     _name = 'quran.reading'
