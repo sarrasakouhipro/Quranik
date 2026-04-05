@@ -83,5 +83,18 @@
                 </form>
             </field>
         </record>
+
+
+        <record id="view_quran_session_pivot" model="ir.ui.view">
+    <field name="name">quran.session.pivot</field>
+    <field name="model">quran.session</field>
+    <field name="arch" type="xml">
+        <pivot string="Sessions Analysis">
+            <field name="teacher_id" type="row"/>
+            <field name="start_datetime" interval="month" type="col"/>
+            <field name="duration" type="measure"/>
+        </pivot>
+    </field>
+</record>
     </data>
 </odoo>
