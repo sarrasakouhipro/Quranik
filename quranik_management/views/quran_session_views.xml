@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <button name="action_send_reminder" string="Send Link by Email" type="object" class="btn-secondary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+
         <record id="view_quran_session_calendar" model="ir.ui.view">
             <field name="name">quran.session.calendar</field>
             <field name="model">quran.session</field>
