@@ -19,3 +19,6 @@ class ResPartner(models.Model):
 
     # Subscription Credits
     session_credits = fields.Integer(string="Remaining Session Credits", default=0)
+
+    # Ce champ permet de lier le prof à son compte de connexion
+    user_id = fields.Many2one('res.users', string="Related User", help="The Odoo user account for this teacher")
