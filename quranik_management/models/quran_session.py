@@ -103,6 +103,14 @@ class QuranSession(models.Model):
             'context': {'default_session_id': self.id}
         }
 
+    survey_url = fields.Char(string="Feedback Link", compute="_compute_survey_url")
+
+    def _compute_survey_url(self):
+        base_url = "https://votre-odoo.com/survey/start/votre-id-sondage"
+        for rec in self:
+            # On ajoute l'ID de la session en paramètre pour savoir d'où vient la réponse
+            rec.survey_url = f"http://elearning.quranik.org/survey/start/462b81bf-6736-44e5-bfd1-16fb55df2426?session_id={rec.id}&student={rec.student_id.name}"
+
 class QuranReading(models.Model):
     _name = 'quran.reading'
     _description = "Quran Reading"
