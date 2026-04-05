@@ -13,7 +13,6 @@
     'category': 'Education',
     'author': 'Quranik',
     'website': 'https://quranik.org',
-    'license': 'LGPL-3',
     
     # Dependencies: 
     # 'mail' for tracking changes/chatter
@@ -31,6 +30,7 @@
         'views/res_partner_views.xml',
         'views/quran_session_views.xml',
         'views/menu_views.xml',
+        'mail_template_data.xml',
     ],
     
     # Demo data for testing (only loaded if 'Load Demo Data' is checked)
