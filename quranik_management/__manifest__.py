@@ -26,6 +26,7 @@
     # Data files loaded on installation/update
     'data': [
         'security/ir.model.access.csv',
+        'security/quranik_security.xml',
         'data/quran_data.xml',
         'data/mail_template_data.xml',
         'wizard/session_close_view.xml',
