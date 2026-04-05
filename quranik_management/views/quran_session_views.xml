@@ -33,7 +33,17 @@
                 <form string="Quran Session">
                     <header>
                         <button name="action_send_reminder" string="Send Link by Email" type="object" class="btn-secondary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <header>
+    <button name="action_start_session" string="Start Session" 
+            type="object" class="oe_highlight" 
+            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
 
+    <button name="action_open_close_wizard" string="End Session" 
+            type="object" class="btn-danger" 
+            attrs="{'invisible': [('state', '!=', 'in_progress')]}"/>
+
+    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
+</header>
                         <button name="action_complete" string="Validate &amp; Deduct Credit" 
                                 type="object" class="oe_highlight" 
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"/>
