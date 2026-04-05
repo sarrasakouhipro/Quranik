@@ -4,7 +4,7 @@
         <record id="action_quran_session" model="ir.actions.act_window">
             <field name="name">Sessions</field>
             <field name="res_model">quran.session</field>
-            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_mode">calendar,tree,form,pivot,graph</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Planifiez votre première séance de Coran !
