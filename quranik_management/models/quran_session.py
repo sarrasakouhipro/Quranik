@@ -48,10 +48,17 @@ class QuranSession(models.Model):
 
     def action_complete(self):
         for record in self:
-            if record.student_id.session_credits <= 0:
-                raise ValidationError(_("The student has no remaining credits!"))
-            record.student_id.session_credits -= 1
-            record.write({'state': 'done'})
+            if record.is_trial:
+                # Si c'est un essai, on coche la case sur l'élève et on ne déduit RIEN
+                record.student_id.has_had_trial = True
+                record.write({'state': 'done'})
+            else:
+                # Logique normale de déduction de crédit
+                if record.student_id.session_credits <= 0:
+                    raise ValidationError("Plus de crédits !")
+                record.student_id.session_credits -= 1
+                record.write({'state': 'done'})
+    
 
     def action_cancel(self):
         self.write({'state': 'cancel'})
@@ -110,6 +117,9 @@ class QuranSession(models.Model):
         for rec in self:
             # On ajoute l'ID de la session en paramètre pour savoir d'où vient la réponse
             rec.survey_url = f"http://elearning.quranik.org/survey/start/462b81bf-6736-44e5-bfd1-16fb55df2426?session_id={rec.id}&student={rec.student_id.name}"
+
+    is_trial = fields.Boolean(string="Trial Session", default=False)
+    
 
 class QuranReading(models.Model):
     _name = 'quran.reading'
