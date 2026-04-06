@@ -22,3 +22,9 @@ class ResPartner(models.Model):
 
     # Ce champ permet de lier le prof à son compte de connexion
     user_id = fields.Many2one('res.users', string="Related User", help="The Odoo user account for this teacher")
+
+    program_id = fields.Many2one('quran.program', string="Current Program")
+    audience_type = fields.Selection(related='program_id.audience', store=True)
+    
+    # Pour la séance d'essai
+    has_had_trial = fields.Boolean(string="Had Trial Session", default=False)
