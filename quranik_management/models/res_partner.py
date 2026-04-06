@@ -13,9 +13,9 @@ class ResPartner(models.Model):
     quran_reading_ids = fields.Many2many('quran.reading', string="Mastered Readings")
     teacher_bio = fields.Html(string="Teacher Biography", translate=True)
 
-    can_teach_kids = fields.Boolean(string="Teaches Kids",default=True)
-    can_teach_teens = fields.Boolean(string="Teaches Teens", default=True)
-    can_teach_adults = fields.Boolean(string="Teaches Adults", default=True)
+    #can_teach_kids = fields.Boolean(string="Teaches Kids",default=True)
+    #can_teach_teens = fields.Boolean(string="Teaches Teens", default=True)
+    #can_teach_adults = fields.Boolean(string="Teaches Adults", default=True)
 
     # Economics
     commission_rate = fields.Float(string="Commission Rate (%)", default=60.0)
