@@ -119,7 +119,9 @@ class QuranSession(models.Model):
             rec.survey_url = f"http://elearning.quranik.org/survey/start/462b81bf-6736-44e5-bfd1-16fb55df2426?session_id={rec.id}&student={rec.student_id.name}"
 
     is_trial = fields.Boolean(string="Trial Session", default=False)
-    
+
+    # Champ technique pour filtrer les profs
+    student_audience = fields.Selection(related='student_id.audience_type', string="Student Audience")
 
 class QuranReading(models.Model):
     _name = 'quran.reading'
