@@ -37,5 +37,7 @@
                   parent="menu_quranik_root" 
                   action="action_quran_teachers" 
                   sequence="20"/>
+
+        <menuitem id="menu_quran_programs" name="Programs" parent="menu_quranik_root" action="action_quran_program" sequence="30"/>
     </data>
 </odoo>
