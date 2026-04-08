@@ -12,14 +12,29 @@
             </field>
         </record>
 
-        <record id="action_quran_teachers" model="ir.actions.act_window">
-            <field name="name">Teachers</field>
-            <field name="res_model">res.partner</field>
-            <field name="domain">[('is_teacher', '=', True)]</field>
-            <field name="context">{'default_is_teacher': True}</field>
-            <field name="view_mode">kanban,tree,form</field>
-        </record>
 
+        <record id="action_quran_teachers" model="ir.actions.act_window">
+    <field name="name">Teachers</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="domain">[('is_teacher', '=', True)]</field>
+    <field name="context">{'default_is_teacher': True, 'default_customer_rank': 0}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Create your first Teacher profile</p>
+    </field>
+</record>
+
+<record id="action_quran_students" model="ir.actions.act_window">
+    <field name="name">Students</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="domain">[('is_student', '=', True)]</field>
+    <field name="context">{'default_is_student': True, 'default_customer_rank': 1}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Register your first Student</p>
+    </field>
+</record>
+        
         <menuitem id="menu_quranik_root" 
                   name="Quranik" 
                   web_icon="base,static/description/icon.png" 
@@ -32,12 +47,18 @@
                   action="action_quran_session" 
                   sequence="10"/>
 
-        <menuitem id="menu_quranik_teachers_sub" 
-                  name="Teachers" 
-                  parent="menu_quranik_root" 
-                  action="action_quran_teachers" 
-                  sequence="20"/>
+        <menuitem id="menu_quran_teachers" 
+          name="Teachers" 
+          parent="menu_quranik_root" 
+          action="action_quran_teachers" 
+          sequence="20"/>
 
-        <menuitem id="menu_quran_programs" name="Programs" parent="menu_quranik_root" action="action_quran_program" sequence="30"/>
+<menuitem id="menu_quran_students" 
+          name="Students" 
+          parent="menu_quranik_root" 
+          action="action_quran_students" 
+          sequence="30"/>
+
+        <menuitem id="menu_quran_programs" name="Programs" parent="menu_quranik_root" action="action_quran_program" sequence="40"/>
     </data>
 </odoo>
