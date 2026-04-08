@@ -4,3 +4,4 @@ access_quran_reading,quran.reading,model_quran_reading,base.group_user,1,1,1,1
 access_quran_value,quran.value,model_quran_value,base.group_user,1,1,1,1
 access_quran_session,quran.session,model_quran_session,base.group_user,1,1,1,1
 access_quran_session_close_wizard,quran.session.close.wizard,model_quran_session_close_wizard,base.group_user,1,1,1,1
+access_quran_program,quran.program,model_quran_program,base.group_user,1,1,1,1
