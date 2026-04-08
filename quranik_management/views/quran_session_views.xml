@@ -55,7 +55,16 @@
                     <sheet>
                         <group>
                             <group string="Schedule">
-                                <field name="teacher_id"/>
+                                <field name="teacher_id" 
+       attrs="{'readonly': [('state', '!=', 'draft')]}"
+       domain="[
+           ('is_teacher', '=', True),
+           '|', '|',
+           ('can_teach_kids', '=', True if student_audience == 'kids' else False),
+           ('can_teach_teens', '=', True if student_audience == 'teens' else False),
+           ('can_teach_adults', '=', True if student_audience == 'adults' else False)
+       ]"/>
+<field name="student_audience" invisible="1"/>
                                 <field name="student_id"/>
                                 <field name="start_datetime"/>
                                 <field name="duration" widget="float_time"/>
