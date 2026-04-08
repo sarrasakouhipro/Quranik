@@ -19,10 +19,6 @@
                             </group>
                         </group>
                         <group string="Teacher Settings" attrs="{'invisible': [('is_teacher', '=', False)]}">
-                            <field name="is_english_speaker"/>
-                            <field name="commission_rate"/>
-                        </group>
-                        <group string="Teacher Settings" attrs="{'invisible': [('is_teacher', '=', False)]}">
     <field name="user_id"/> <field name="is_english_speaker"/>
     <field name="quran_reading_ids" widget="many2many_tags"/>
     <field name="commission_rate"/>
