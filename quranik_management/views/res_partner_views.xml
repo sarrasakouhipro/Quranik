@@ -27,5 +27,37 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="view_partner_form_quranik_inherit" model="ir.ui.view">
+    <field name="name">res.partner.form.quranik</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+        
+        <xpath expr="//field[@name='function']" position="after">
+            <field name="user_id" placeholder="Lier à un compte utilisateur..."/>
+            <field name="is_teacher" invisible="1"/>
+            <field name="is_student" invisible="1"/>
+        </xpath>
+
+        <xpath expr="//notebook" position="inside">
+            <page string="Quranik Academy" attrs="{'invisible': [('is_teacher', '=', False), ('is_student', '=', False)]}">
+                <group>
+                    <group string="Teacher Details" attrs="{'invisible': [('is_teacher', '=', False)]}">
+                        <field name="can_teach_kids"/>
+                        <field name="can_teach_adults"/>
+                        <field name="commission_rate"/>
+                    </group>
+                    
+                    <group string="Student Details" attrs="{'invisible': [('is_student', '=', False)]}">
+                        <field name="program_id"/>
+                        <field name="audience_type"/>
+                        <field name="session_credits" readonly="1"/>
+                    </group>
+                </group>
+            </page>
+        </xpath>
+    </field>
+</record>
     </data>
 </odoo>
