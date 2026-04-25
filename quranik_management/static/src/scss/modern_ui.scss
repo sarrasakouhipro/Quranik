@@ -1,113 +1,119 @@
 // ============================================================
-// QURANIK - SIDEBAR "ULTRA-FORCE" (VERCEL STYLE)
+// QURANIK - VERCEL SIDEBAR (FORCE RECONSTRUCTION)
 // ============================================================
 
 :root {
     --q-navy: #1B263B;
     --q-gold: #C5A059;
-    --q-gold-light: rgba(197, 160, 89, 0.15);
-    --q-bg-app: #f4f7f9;
+    --q-gold-light: rgba(197, 160, 89, 0.1);
+    --q-bg: #f5f7f9;
     --sidebar-width: 240px;
-    
-    --primary: var(--q-gold) !important;
 }
 
-// 1. RESTRUCTURATION RADICALE DU LAYOUT
+// 1. ARCHITECTURE DE BASE
 // ------------------------------------------------------------
 body.o_web_client {
     display: flex !important;
     flex-direction: row !important;
-    background-color: var(--q-bg-app) !important;
+    background-color: var(--q-bg) !important;
     overflow: hidden !important;
 
-    // LA SIDEBAR (ANCIENNE NAVBAR)
     .o_main_navbar {
         flex: 0 0 var(--sidebar-width) !important;
         width: var(--sidebar-width) !important;
         height: 100vh !important;
         background-color: var(--q-navy) !important;
         display: flex !important;
-        flex-direction: column !important; // Alignement vertical
-        border-right: 1px solid rgba(197, 160, 89, 0.1) !important;
+        flex-direction: column !important; // Alignement Vertical
+        border-right: 1px solid rgba(197, 160, 89, 0.2) !important;
         padding: 0 !important;
         z-index: 1000 !important;
 
-        // Logo Quranik
+        // Logo
         .o_menu_brand {
-            display: block !important;
-            padding: 40px 15px !important;
+            padding: 35px 15px !important;
             color: var(--q-gold) !important;
-            font-size: 22px !important;
+            font-size: 20px !important;
             font-weight: 800 !important;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: block !important;
+            width: 100% !important;
         }
 
-        // --- CORE FIX : FORCER LA VISIBILITÉ DES MENUS ---
+        // --- LE FIX RADICAL POUR LES MENUS ---
         .o_menu_sections {
             display: flex !important;
-            flex-direction: column !important; // Empilement vertical
+            flex-direction: column !important; // Force l'empilement
             width: 100% !important;
-            padding: 15px 10px !important;
+            padding: 10px !important;
             margin: 0 !important;
             flex-grow: 1;
-            overflow-y: auto;
+            
+            // CRITIQUE : Contrer le JavaScript d'Odoo qui cache les éléments
             opacity: 1 !important;
             visibility: visible !important;
+            overflow: visible !important;
 
-            // Masquer le bouton "+" d'Odoo
-            .o_menu_sections_more { display: none !important; }
+            // Cacher le bouton "+" car on force tout l'affichage
+            .o_menu_sections_more {
+                display: none !important;
+            }
 
-            // Cibler TOUS les types d'éléments (liens, dropdowns, etc.)
-            li, .nav-item {
-                display: block !important; // Force l'affichage
+            // On cible chaque élément de liste pour forcer sa présence
+            li {
+                display: block !important; // Force l'affichage même si Odoo met d-none
                 width: 100% !important;
+                position: relative !important;
                 opacity: 1 !important;
                 visibility: visible !important;
-                position: relative !important;
 
-                // Liens directs (ex: Sessions, Teachers)
+                // Style des liens (Sessions, Teachers, etc.)
                 a.o_nav_entry, a.nav-link, .dropdown-toggle {
-                    display: block !important;
                     padding: 12px 15px !important;
                     color: rgba(255, 255, 255, 0.8) !important;
                     font-size: 14px !important;
-                    font-weight: 500;
+                    font-weight: 500 !important;
                     border-radius: 8px !important;
+                    display: flex !important; // Garde les icônes alignées
+                    align-items: center;
+                    width: 100% !important;
                     transition: all 0.2s ease;
-                    text-decoration: none !important;
 
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.05) !important;
                         color: var(--q-gold) !important;
                         transform: translateX(5px);
                     }
+
+                    &.active {
+                        background-color: var(--q-gold-light) !important;
+                        color: var(--q-gold) !important;
+                        border-left: 3px solid var(--q-gold);
+                    }
                 }
 
-                // Pour les menus avec sous-menus
+                // Pour les sous-menus (Dropdown)
                 .dropdown-menu {
-                    position: static !important; // Intégration directe
-                    display: block !important;   // Toujours ouvert
+                    position: static !important; // Plus de pop-up, intégration directe
+                    display: block !important;   // Toujours visible
                     background: transparent !important;
                     border: none !important;
                     box-shadow: none !important;
-                    padding: 0 0 0 20px !important; // Décalage
-                    margin: 0 !important;
-                    float: none !important;
-
+                    padding-left: 20px !important;
+                    
                     .dropdown-item {
                         color: rgba(255, 255, 255, 0.6) !important;
                         font-size: 13px;
                         padding: 8px 15px !important;
-                        &:hover { color: var(--q-gold) !important; background: transparent !important; }
+                        &:hover { background: transparent !important; color: var(--q-gold) !important; }
                     }
                 }
             }
         }
 
-        // Profil Utilisateur en bas
+        // Footer Sidebar (Systray)
         .o_menu_systray {
             margin-top: auto !important;
             background: rgba(0, 0, 0, 0.2);
@@ -115,15 +121,17 @@ body.o_web_client {
             display: flex !important;
             flex-direction: row !important;
             justify-content: space-around !important;
+            
             .dropdown-toggle:after { display: none !important; }
+            .o_user_avatar { border: 2px solid var(--q-gold); }
         }
     }
 
-    // 2. CONTENU PRINCIPAL (LA BOITE BLANCHE)
+    // 2. CONTENU BOXED (VERCEL STYLE)
     // ------------------------------------------------------------
     .o_action_manager {
         flex: 1 !important;
-        padding: 25px !important;
+        padding: 30px !important;
         display: flex !important;
         justify-content: center !important;
         align-items: flex-start !important;
@@ -142,17 +150,19 @@ body.o_web_client {
             overflow-y: scroll !important;
             scrollbar-gutter: stable;
 
-            & > * { direction: ltr !important; text-align: left; }
+            & > * {
+                direction: ltr !important;
+                text-align: left;
+            }
         }
     }
 }
 
-// 3. SCROLLBARS & BOUTONS
+// 3. SCROLLBAR & BOUTONS
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: var(--q-gold); border-radius: 10px; }
 
 .btn-primary {
     background-color: var(--q-gold) !important;
     border: none !important;
-    box-shadow: 0 4px 10px var(--q-gold-light) !important;
 }
