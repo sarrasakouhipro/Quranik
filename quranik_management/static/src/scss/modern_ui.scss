@@ -273,3 +273,71 @@ body.dark {
     background: #1e293b;
   }
 }
+/* =========================
+   STATUSBAR (Completed, etc.)
+========================= */
+
+.o_statusbar_status {
+
+  .o_arrow_button {
+    background: #e5e7eb;
+    color: #374151;
+    border-radius: 8px;
+    margin-right: 5px;
+  }
+
+  .o_arrow_button.btn-primary,
+  .o_arrow_button.o_arrow_button_current {
+    background: $secondary !important; // doré
+    color: #000 !important;
+    border: none;
+  }
+}
+/* =========================
+   CHECKBOX
+========================= */
+
+.form-check-input:checked {
+  background-color: $secondary !important;
+  border-color: $secondary !important;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
+}
+.form-check-input[type="radio"]:checked {
+  background-color: $secondary !important;
+  border-color: $secondary !important;
+}
+/* =========================
+   SWITCH (toggle)
+========================= */
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: $secondary !important;
+  border-color: $secondary !important;
+}
+.btn-outline-primary {
+  color: $secondary !important;
+  border-color: $secondary !important;
+
+  &:hover {
+    background: $secondary !important;
+    color: #000 !important;
+  }
+}
+:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.3);
+}
+.badge.bg-primary,
+.badge-primary {
+  background: $secondary !important;
+  color: #000 !important;
+}
+.progress-bar {
+  background-color: $secondary !important;
+}
