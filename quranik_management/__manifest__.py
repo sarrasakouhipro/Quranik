@@ -40,6 +40,12 @@
     'demo': [
         'demo/quran_demo.xml',
     ],
+
+    'assets': {
+    'web.assets_backend': [
+        'quranik_management/static/src/scss/style.scss',
+    ],
+    },
     
     'installable': True,
     'application': True,
