@@ -1,5 +1,5 @@
 // ============================================================
-// QURANIK - DESIGN VERCEL (SIDEBAR VERTICALE + BOXED)
+// QURANIK - VERCEL SIDEBAR (FIX VISIBILITÉ MENUS)
 // ============================================================
 
 :root {
@@ -9,13 +9,10 @@
     --q-bg-app: #f0f2f5;
     --sidebar-width: 260px;
     
-    // Variables globales Odoo
     --primary: var(--q-gold) !important;
-    --o-brand-primary: var(--q-gold) !important;
-    --o-brand-odoo: var(--q-navy) !important;
 }
 
-// 1. STRUCTURE : BARRE LATÉRALE À GAUCHE
+// 1. LAYOUT SIDEBAR
 // ------------------------------------------------------------
 body.o_web_client {
     display: flex !important;
@@ -30,11 +27,10 @@ body.o_web_client {
         background-color: var(--q-navy) !important;
         border-right: 1px solid rgba(197, 160, 89, 0.2) !important;
         display: flex !important;
-        flex-direction: column !important; // Force l'empilement vertical
+        flex-direction: column !important;
         padding: 0 !important;
         z-index: 100 !important;
 
-        // Logo Quranik
         .o_menu_brand {
             padding: 40px 20px !important;
             font-size: 24px !important;
@@ -43,22 +39,26 @@ body.o_web_client {
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 20px;
         }
 
-        // --- CORRECTION : MENUS VERTICAUX (L'UN EN DESSOUS DE L'AUTRE) ---
+        // --- LA SOLUTION POUR LES MENUS INVISIBLES ---
         .o_menu_sections {
             display: flex !important;
-            flex-direction: column !important; // ALIGNEMENT VERTICAL
+            flex-direction: column !important; // Empilement vertical
             width: 100% !important;
-            padding: 0 15px !important;
+            padding: 10px 15px !important;
             margin: 0 !important;
 
+            // On force TOUS les éléments à être visibles (ignore le JS Odoo)
             > li {
+                display: block !important; 
                 width: 100% !important;
-                display: block !important;
-                margin-bottom: 5px;
+                position: static !important;
+
+                // Masquer le bouton "+" ou "More" car on veut tout voir
+                &.o_menu_sections_more {
+                    display: none !important;
+                }
 
                 > a {
                     padding: 12px 15px !important;
@@ -82,31 +82,39 @@ body.o_web_client {
                     }
                 }
             }
+            
+            // Forcer l'affichage des sous-menus si nécessaire
+            .dropdown-menu {
+                position: static !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding-left: 20px !important;
+                display: block !important; // On peut les laisser ouverts ou gérer le toggle
+            }
         }
 
-        // Bas de la barre (Utilisateur, Admin)
         .o_menu_systray {
             margin-top: auto !important;
             padding: 20px !important;
             background: rgba(0, 0, 0, 0.2);
             display: flex !important;
-            justify-content: space-around !important;
             flex-direction: row !important;
+            justify-content: space-around !important;
             
-            .dropdown-toggle { color: white !important; }
+            .dropdown-toggle:after { display: none !important; }
             .o_user_avatar { border: 2px solid var(--q-gold); }
         }
     }
 
-    // 2. CONTENU PRINCIPAL (BOXED)
+    // 2. ZONE DE CONTENU
     // ------------------------------------------------------------
     .o_action_manager {
         flex: 1 !important;
-        padding: 30px !important;
+        padding: 25px !important;
         display: flex !important;
         justify-content: center !important;
         align-items: flex-start !important;
-        overflow: hidden !important;
 
         .o_content {
             flex: 0 1 1500px !important;
@@ -122,38 +130,11 @@ body.o_web_client {
             overflow-y: scroll !important;
             scrollbar-gutter: stable;
 
-            & > * {
-                direction: ltr !important;
-                text-align: left;
-            }
+            & > * { direction: ltr !important; text-align: left; }
         }
     }
 }
 
-// 3. BOUTONS ET ÉLÉMENTS (ZÉRO VIOLET)
-// ------------------------------------------------------------
-.btn-primary {
-    background-color: var(--q-gold) !important;
-    border: none !important;
-    border-radius: 8px !important;
-    &:hover { filter: brightness(1.1); transform: translateY(-1px); }
-}
-
-.o_statusbar_status {
-    .o_arrow_button.state_active {
-        background-color: var(--q-navy) !important;
-        color: var(--q-gold) !important;
-        background-image: none !important;
-        &:after { border-left-color: var(--q-navy) !important; }
-    }
-}
-
-// Scrollbar fine dorée
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-thumb { 
-    background: var(--q-gold); 
-    border-radius: 10px; 
-}
-
-// Supprimer les icônes de flèches inutiles
-.dropdown-toggle:after { display: none !important; }
+// 3. SCROLLBAR DORÉE
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: var(--q-gold); border-radius: 10px; }
