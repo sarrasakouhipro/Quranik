@@ -65,3 +65,56 @@ body.o_web_client {
 .o_setting_box .o_setting_right_pane .o_icon {
     filter: sepia(100%) saturate(300%) hue-rotate(10deg); // Simule un effet doré
 }
+
+// --- VARIABLES DE RÉFÉRENCE ---
+$q-marine: #1B263B !important;
+$q-gold: #C5A059 !important;
+
+// 1. FORCER LA BARRE DE NAVIGATION (Le haut)
+.o_main_navbar {
+    background-color: $q-marine; // Force le bleu marine
+    background: $q-marine;       // Sécurité supplémentaire
+    border-bottom: 3px solid $q-gold;
+
+    // Le nom de l'app (Quranik) et les menus
+    .o_menu_brand, .o_nav_entry, .o_menu_sections > li > a {
+        color: white !important;
+        font-weight: 500 !important;
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: $q-gold !important;
+        }
+    }
+}
+
+// 2. L'ARRIÈRE-PLAN DU MODE "BOXED"
+// Pour que l'effet "boîte" soit visible, il faut que le fond derrière soit sombre (Marine) 
+// ou gris très clair. Essayons un Bleu Marine très profond pour le contraste.
+body.o_web_client {
+    background-color: #0f172a !important; // Un bleu encore plus sombre pour le fond
+
+    .o_action_manager {
+        background: transparent !important; // On laisse voir le fond du body
+        padding: 20px 40px !important;
+
+        .o_content {
+            background-color: white !important; // La feuille de travail reste blanche
+            border-radius: 15px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+            border: 1px solid rgba(197, 160, 89, 0.2) !important; // Bordure dorée très discrète
+            overflow: auto !important;
+        }
+    }
+}
+
+// 3. LE MENU DÉROULANT (Celui avec les carrés en haut à gauche)
+.o_menu_apps .dropdown-menu {
+    background-color: $q-marine;
+    .dropdown-item {
+        color: white !important;
+        &:hover {
+            background-color: $q-gold;
+        }
+    }
+}
