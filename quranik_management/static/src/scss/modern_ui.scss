@@ -285,3 +285,54 @@ body.o_web_client {
         text-align: left;
     }
 }
+
+// ==========================================
+// STRUCTURE CENTRÉE (BOXED) AVEC BARRE À GAUCHE
+// ==========================================
+
+body.o_web_client {
+    // On s'assure que le fond couvre tout
+    background-color: var(--q-bg-app) !important;
+
+    .o_action_manager {
+        display: flex !important;
+        justify-content: center !important; // CENTRE HORIZONTALEMENT
+        align-items: flex-start !important; // Aligne en haut
+        background: transparent !important;
+        padding: 20px !important;
+        height: 100% !important;
+        width: 100% !important;
+
+        .o_content {
+            // 1. LA BOITE CENTRÉE
+            flex: 0 1 1500px !important; // Largeur max 1500px, mais peut rétrécir
+            width: 100% !important;
+            margin: 0 auto !important; // Sécurité pour le centrage
+            
+            // 2. LA BARRE À GAUCHE
+            overflow-y: scroll !important; 
+            direction: rtl !important; // Déplace la barre à gauche
+            
+            // 3. DESIGN DE LA BOITE
+            background-color: #ffffff !important;
+            border-radius: 16px !important;
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
+            
+            // 4. RÉALIGNER LE CONTENU INTÉRIEUR
+            // On remet le contenu en 'ltr' (ou 'rtl' si vous travaillez en Arabe)
+            // Mais on s'assure qu'il prend toute la largeur
+            > * {
+                direction: ltr !important; // Remplacez par rtl si l'interface doit être en Arabe
+                text-align: inherit;
+                width: 100% !important;
+            }
+        }
+    }
+}
+
+// Optionnel : Si vous voulez que la barre soit encore plus discrète 
+// pour ne pas gêner le contenu centré à gauche
+.o_content::-webkit-scrollbar {
+    width: 4px !important; // Plus fine
+}
