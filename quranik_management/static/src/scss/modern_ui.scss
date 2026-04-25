@@ -1,428 +1,114 @@
-/* =========================
-   QURANIK MODERN UI THEME
-   Odoo 16 Community
-========================= */
+// ============================================================
+// QURANIK - MODERN HORIZONTAL LAYOUT (RETOUR AU TOP)
+// ============================================================
 
-/* =========================
-   1. COLOR SYSTEM (OVERRIDE ODOO)
-========================= */
-
-$o-brand-primary: #0f172a; // Bleu marine
-$o-brand-secondary: #d4af37; // Doré
-
-$primary: #0f172a;
-$secondary: #d4af37;
-
-$success: #22c55e;
-$danger: #ef4444;
-$warning: #f59e0b;
-
-$bg-main: #f8fafc;
-$bg-card: #ffffff;
-
-$text-main: #0f172a;
-$text-muted: #64748b;
-
-$border-color: #e2e8f0;
-
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 16px;
-
-$shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-$shadow-md: 0 4px 20px rgba(0,0,0,0.08);
-$shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
-
-$btn-primary-bg: $o-brand-primary;
-$btn-primary-border: $o-brand-primary;
-
-$link-color: $secondary;
-
-/* =========================
-   2. GLOBAL
-========================= */
-
-body {
-  background: $bg-main;
-  color: $text-main;
-  font-family: "Inter", sans-serif;
+:root {
+    --q-navy: #1B263B;
+    --q-gold: #C5A059;
+    --q-gold-light: rgba(197, 160, 89, 0.1);
+    --q-bg: #f5f7f9;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+// 1. RÉINITIALISATION DU LAYOUT GLOBAL (HORIZONTAL)
+// ------------------------------------------------------------
+body.o_web_client {
+    display: flex !important;
+    flex-direction: column !important; // Navbar en haut, Contenu en bas
+    background-color: var(--q-bg) !important;
 }
 
-/* =========================
-   3. NAVBAR
-========================= */
-
+// 2. NAVBAR MODERNE (HORIZONTALE)
+// ------------------------------------------------------------
 .o_main_navbar {
-  background: $o-brand-primary !important;
-  border-bottom: none;
-  box-shadow: $shadow-sm;
+    flex: 0 0 auto !important;
+    background-color: var(--q-navy) !important;
+    border-bottom: 2px solid var(--q-gold) !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 15px !important;
 
-  .o_menu_brand {
-    color: #ffffff;
-    font-weight: 600;
-  }
+    .o_menu_brand {
+        color: var(--q-gold) !important;
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-right: 20px !important;
+    }
 
-  .dropdown-toggle {
-    color: #e2e8f0;
-  }
+    // On remet les menus en ligne
+    .o_menu_sections {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        
+        li > a {
+            color: rgba(255, 255, 255, 0.8) !important;
+            padding: 10px 15px !important;
+            font-weight: 500;
+            &:hover {
+                color: var(--q-gold) !important;
+                background: rgba(255, 255, 255, 0.05) !important;
+            }
+        }
+    }
 }
 
-/* =========================
-   4. BUTTONS
-========================= */
+// 3. ZONE DE CONTENU "BOXED" ET CENTRÉE
+// ------------------------------------------------------------
+.o_action_manager {
+    flex: 1 !important;
+    display: flex !important;
+    justify-content: center !important; // Centre la boite
+    align-items: flex-start !important;
+    padding: 25px !important; // Espace pour l'effet flottant
+    overflow: hidden !important;
 
-.btn {
-  border-radius: $radius-sm;
-  transition: all 0.2s ease;
+    .o_content {
+        background-color: #ffffff !important;
+        border-radius: 12px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+        border: 1px solid #eef2f6 !important;
+        width: 100% !important;
+        max-width: 1500px !important; // Largeur max de la zone de travail
+        height: 100% !important;
+        
+        // --- LA BARRE DE DÉFILEMENT À GAUCHE ---
+        direction: rtl !important; 
+        overflow-y: scroll !important;
+        scrollbar-gutter: stable;
+
+        // Réaligner le contenu interne à l'endroit
+        & > * {
+            direction: ltr !important; 
+            text-align: left;
+        }
+    }
 }
 
+// 4. STYLE DES BOUTONS ET SCROLLBARS
+// ------------------------------------------------------------
+
+// Boutons Quranik
 .btn-primary {
-  background: $o-brand-primary !important;
-  border-color: $o-brand-primary !important;
-  color: #ffffff;
-
-  &:hover {
-    background: lighten($o-brand-primary, 5%);
-    box-shadow: 0 4px 12px rgba(15,23,42,0.3);
-  }
+    background-color: var(--q-gold) !important;
+    border: none !important;
+    border-radius: 6px !important;
+    &:hover { filter: brightness(1.1); }
 }
 
-.btn-secondary {
-  background: $secondary;
-  border: none;
-  color: #000;
-
-  &:hover {
-    background: darken($secondary, 10%);
-  }
+// Scrollbar fine dorée
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { 
+    background: var(--q-gold) !important; 
+    border-radius: 10px; 
 }
 
-/* =========================
-   5. LINKS
-========================= */
-
-a {
-  color: $secondary;
-
-  &:hover {
-    color: darken($secondary, 10%);
-  }
-}
-
-/* =========================
-   6. FORM VIEW
-========================= */
-
-.o_form_view {
-  background: $bg-main;
-
-  .o_form_sheet_bg {
-    background: transparent;
-  }
-
-  .o_form_sheet {
-    background: $bg-card;
-    border-radius: $radius-lg;
-    padding: 24px;
-    box-shadow: $shadow-md;
-  }
-
-  input,
-  textarea,
-  select {
-    border-radius: $radius-sm;
-    border: 1px solid $border-color;
-    padding: 10px;
-    transition: all 0.2s ease;
-
-    &:focus {
-      border-color: $secondary;
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
-    }
-  }
-
-  label {
-    color: $text-muted;
-    font-weight: 500;
-  }
-}
-
-/* =========================
-   7. LIST VIEW
-========================= */
-
-.o_list_view {
-  background: $bg-card;
-  border-radius: $radius-lg;
-  overflow: hidden;
-  box-shadow: $shadow-sm;
-
-  thead {
-    background: #f1f5f9;
-
-    th {
-      font-weight: 600;
-      padding: 12px;
-      color: $text-main;
-    }
-  }
-
-  tbody tr {
-    transition: all 0.15s;
-
-    &:hover {
-      background: #f8fafc;
-    }
-
-    td {
-      padding: 12px;
-    }
-  }
-}
-
-/* =========================
-   8. KANBAN VIEW
-========================= */
-
-.o_kanban_view {
-  .o_kanban_record {
-    border-radius: $radius-md;
-    background: #ffffff;
-    box-shadow: $shadow-sm;
-    transition: all 0.2s ease;
-
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: $shadow-md;
-    }
-  }
-}
-
-/* =========================
-   9. TABS
-========================= */
-
-.nav-tabs {
-  border-bottom: none;
-
-  .nav-link {
-    border-radius: $radius-sm;
-    margin-right: 6px;
-    color: $text-muted;
-
-    &.active {
-      background: $secondary;
-      color: #000;
-    }
-  }
-}
-
-/* =========================
-   10. BADGES
-========================= */
-
-.badge {
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-weight: 500;
-}
-
-.badge-primary {
-  background: linear-gradient(135deg, #d4af37, #f5d76e);
-  color: #000;
-}
-
-/* =========================
-   11. CHATTER
-========================= */
-
-.o_Chatter {
-  border-top: 1px solid $border-color;
-  margin-top: 20px;
-  padding-top: 20px;
-}
-
-/* =========================
-   12. MODALS
-========================= */
-
-.modal-content {
-  border-radius: $radius-lg;
-  box-shadow: $shadow-lg;
-}
-
-/* =========================
-   13. DARK MODE (OPTIONAL)
-========================= */
-
-body.dark {
-  background: #0f172a;
-  color: #e2e8f0;
-
-  .o_form_sheet,
-  .o_list_view {
-    background: #1e293b;
-  }
-}
-/* =========================
-   STATUSBAR (Completed, etc.)
-========================= */
-
-.o_statusbar_status {
-
-  .o_arrow_button {
-    background: #e5e7eb;
-    color: #374151;
-    border-radius: 8px;
-    margin-right: 5px;
-  }
-
-  .o_arrow_button.btn-primary,
-  .o_arrow_button.o_arrow_button_current {
-    background: $secondary !important; // doré
-    color: #000 !important;
-    border: none;
-  }
-}
-/* =========================
-   CHECKBOX
-========================= */
-
-.form-check-input:checked {
-  background-color: $secondary !important;
-  border-color: $secondary !important;
-}
-
-.form-check-input:focus {
-  box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
-}
-.form-check-input[type="radio"]:checked {
-  background-color: $secondary !important;
-  border-color: $secondary !important;
-}
-/* =========================
-   SWITCH (toggle)
-========================= */
-
-.custom-control-input:checked ~ .custom-control-label::before {
-  background-color: $secondary !important;
-  border-color: $secondary !important;
-}
-.btn-outline-primary {
-  color: $secondary !important;
-  border-color: $secondary !important;
-
-  &:hover {
-    background: $secondary !important;
-    color: #000 !important;
-  }
-}
-:focus {
-  outline: none;
-}
-
-*:focus-visible {
-  box-shadow: 0 0 0 3px rgba(212,175,55,0.3);
-}
-.badge.bg-primary,
-.badge-primary {
-  background: $secondary !important;
-  color: #000 !important;
-}
-.progress-bar {
-  background-color: $secondary !important;
-}
-
-/* =========================
-   PRIMARY ACTION BUTTON (ex: Envoyer message)
-========================= */
-
-.oe_highlight,
-.btn-primary,
-.o_form_button_save {
-  background: $secondary !important; // doré
-  border-color: $secondary !important;
-  color: #000 !important;
-  border-radius: 8px;
-  font-weight: 500;
-
-  &:hover {
-    background: darken($secondary, 8%) !important;
-    border-color: darken($secondary, 8%) !important;
-    color: #000 !important;
-  }
-}
-/* =========================
-   ICONS (global)
-========================= */
-
-.o_action_manager i,
-.o_control_panel .o_cp_icons i,
-.o_form_view .oe_button_box i,
-.o_list_view .o_list_record_selector i,
-.fa,
-.oi {
-  color: $o-brand-primary !important;
-  transition: color 0.2s ease;
-}
-
-/* Hover → doré */
-.o_action_manager i:hover,
-.o_control_panel .o_cp_icons i:hover,
-.fa:hover,
-.oi:hover {
-  color: $secondary !important;
-}
-/* =========================
-   PAGINATION / ARROWS
-========================= */
-
-.o_pager .o_pager_previous,
-.o_pager .o_pager_next,
-.o_pager button {
-  color: $o-brand-primary !important;
-}
-
-.o_pager .o_pager_previous:hover,
-.o_pager .o_pager_next:hover,
-.o_pager button:hover {
-  color: $secondary !important;
-}
-
-.o_icon_button,
-.btn-icon {
-  color: $o-brand-primary !important;
-
-  &:hover {
-    color: $secondary !important;
-  }
-}
-/* =========================
-   CHATTER TABS
-========================= */
-
-.o_ChatterTopbar_button {
-  color: $o-brand-primary !important;
-
-  &.o-active {
-    color: $secondary !important;
-    border-bottom: 2px solid $secondary;
-  }
-}
-.btn-secondary,
-.btn-light {
-  color: $o-brand-primary !important;
-
-  &:hover {
-    color: $secondary !important;
-  }
+// Suppression du violet dans la barre de statut
+.o_statusbar_status .o_arrow_button.state_active {
+    background-color: var(--q-navy) !important;
+    color: var(--q-gold) !important;
+    background-image: none !important;
+    &:after { border-left-color: var(--q-navy) !important; }
 }
