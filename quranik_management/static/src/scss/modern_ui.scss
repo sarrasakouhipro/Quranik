@@ -60,3 +60,8 @@ body.o_web_client {
         }
     }
 }
+
+// Si une icône fait de la résistance (ex: icône de réglages)
+.o_setting_box .o_setting_right_pane .o_icon {
+    filter: sepia(100%) saturate(300%) hue-rotate(10deg); // Simule un effet doré
+}
