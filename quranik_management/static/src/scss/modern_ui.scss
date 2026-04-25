@@ -220,3 +220,87 @@ body.o_web_client {
     from { opacity: 0; transform: translateX(-10px); }
     to { opacity: 1; transform: translateX(0); }
 }
+
+// ==========================================
+// QURANIK - SIDEBAR INTEGRATION TOTAL
+// ==========================================
+
+:root {
+    --sidebar-width: 260px;
+    --q-navy: #1B263B;
+    --q-gold: #C5A059;
+}
+
+// 1. STYLE DU MENU DÉROULANT DES APPS (FUSION)
+// ------------------------------------------
+.o_navbar_apps_menu {
+    // On cache la petite flèche et on stylise le bouton grid
+    .dropdown-toggle:after { display: none !important; }
+    
+    .dropdown-menu {
+        // ON L'INTÈGRE DANS LA SIDEBAR
+        position: static !important; // Ne flotte plus au-dessus
+        display: block !important;   // Toujours visible si tu veux, ou bien ajusté
+        width: 100% !important;
+        background-color: transparent !important; // Prend la couleur Navy de la sidebar
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 15px !important;
+        margin: 0 !important;
+        transform: none !important;
+
+        .dropdown-item {
+            color: rgba(255, 255, 255, 0.7) !important;
+            padding: 10px 15px !important;
+            border-radius: 8px !important;
+            margin-bottom: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.05) !important;
+                color: var(--q-gold) !important;
+                transform: translateX(5px);
+            }
+
+            // On rend les icônes dorées/blanches pour le look premium
+            img {
+                filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(10deg);
+                margin-right: 12px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+}
+
+// 2. AJUSTEMENT DE LA SIDEBAR POUR ACCUEILLIR LE MENU
+// ------------------------------------------
+.o_main_navbar {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: auto !important; // Permet de scroller dans le menu si trop d'apps
+    
+    // On cache les scrollbars moches de la sidebar
+    &::-webkit-scrollbar { width: 0px; }
+
+    // Titre Quranik
+    .o_menu_brand {
+        padding: 30px 20px !important;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        margin-bottom: 10px;
+    }
+}
+
+// 3. FIX POUR LES BOUTONS SYSTRAY (ADMIN, CLOCK)
+// ------------------------------------------
+.o_menu_systray {
+    margin-top: auto !important; // Pousse les infos utilisateur vers le bas
+    background: rgba(0, 0, 0, 0.2) !important;
+    padding: 10px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+}
