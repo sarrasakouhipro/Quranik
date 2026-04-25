@@ -497,3 +497,36 @@ body.dark {
   padding: 20px;
 }
 
+.o_main_navbar {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.o_main_navbar .dropdown-menu {
+  position: relative !important;
+  transform: none !important;
+  width: 100%;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.o_main_navbar .dropdown-menu a {
+  padding: 10px 30px;
+  display: block;
+  color: #cbd5e1;
+}
+
+.o_main_navbar .dropdown-menu a:hover {
+  color: $secondary;
+  background: rgba(255,255,255,0.05);
+}
+.o_main_navbar .o_menu_sections {
+  flex: 1;
+  overflow-y: auto;
+}
+.o_main_navbar {
+  min-width: 220px;
+}
+.o_main_navbar .dropdown-toggle {
+  white-space: normal;
+}
