@@ -149,3 +149,84 @@ input.o_field_widget, select.o_field_widget, textarea.o_field_widget {
     border: 1px solid rgba(197, 160, 89, 0.2) !important;
     backdrop-filter: blur(4px);
 }
+
+
+// ==========================================
+// FIX : MENUS DÉROULANTS & SCROLLBARS (MODERNE)
+// ==========================================
+
+// 1. STYLE DES MENUS DÉROULANTS (Dropdowns)
+// ------------------------------------------
+.dropdown-menu {
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    padding: 8px !important;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px);
+    margin-top: 10px !important; // Décale un peu le menu pour l'effet "flottant"
+
+    .dropdown-item {
+        border-radius: 6px !important;
+        padding: 8px 12px !important;
+        color: var(--q-marine-nav) !important;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: rgba(197, 160, 89, 0.1) !important; // Fond doré très léger
+            color: var(--q-gold) !important;
+            transform: translateX(3px); // Petit décalage élégant au survol
+        }
+
+        &.active {
+            background-color: var(--q-gold) !important;
+            color: white !important;
+        }
+    }
+}
+
+// 2. MODERNISATION DE LA SCROLLBAR (Style Vercel/Mac)
+// ------------------------------------------
+// On rend la barre de défilement très fine et discrète
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e2e8f0; // Gris très clair
+    border-radius: 10px;
+    &:hover {
+        background: var(--q-gold); // Devient dorée quand on l'approche
+    }
+}
+
+// 3. FIX SPÉCIFIQUE POUR LE MENU DES APPS (L'icône carrée)
+// ------------------------------------------
+.o_navbar_apps_menu {
+    .dropdown-menu {
+        background-color: var(--q-marine-nav) !important; // Menu des apps en Marine
+        border: 1px solid rgba(197, 160, 89, 0.2) !important;
+        
+        .dropdown-item {
+            color: rgba(255, 255, 255, 0.8) !important;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1) !important;
+                color: var(--q-gold) !important;
+            }
+        }
+    }
+}
+
+// 4. NETTOYAGE DES SÉPARATEURS
+// ------------------------------------------
+.dropdown-divider {
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    margin: 4px 0 !important;
+}
