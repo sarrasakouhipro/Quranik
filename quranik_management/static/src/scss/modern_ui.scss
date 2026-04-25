@@ -1,170 +1,114 @@
 // ============================================================
-// QURANIK - VERCEL ARCHITECTURE (FORCE VERTICAL & VISIBILITY)
+// QURANIK - MODERN HORIZONTAL LAYOUT (RETOUR AU TOP)
 // ============================================================
 
 :root {
     --q-navy: #1B263B;
     --q-gold: #C5A059;
-    --q-gold-glow: rgba(197, 160, 89, 0.1);
-    --q-bg-app: #f4f7f9;
-    --sidebar-width: 230px;
-    
-    // Override Odoo Colors
-    --primary: var(--q-gold) !important;
-    --o-brand-primary: var(--q-gold) !important;
+    --q-gold-light: rgba(197, 160, 89, 0.1);
+    --q-bg: #f5f7f9;
 }
 
-// 1. RECONSTRUCTION DU LAYOUT (GRID)
+// 1. RÉINITIALISATION DU LAYOUT GLOBAL (HORIZONTAL)
 // ------------------------------------------------------------
 body.o_web_client {
-    display: grid !important;
-    grid-template-columns: var(--sidebar-width) 1fr !important;
-    grid-template-rows: 100vh !important;
-    background-color: var(--q-bg-app) !important;
-    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important; // Navbar en haut, Contenu en bas
+    background-color: var(--q-bg) !important;
+}
 
-    // LA SIDEBAR (ANCIENNE NAVBAR)
-    .o_main_navbar {
-        grid-column: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        height: 100vh !important;
-        background-color: var(--q-navy) !important;
-        border-right: 1px solid rgba(197, 160, 89, 0.15) !important;
-        padding: 0 !important;
-        z-index: 1000 !important;
+// 2. NAVBAR MODERNE (HORIZONTALE)
+// ------------------------------------------------------------
+.o_main_navbar {
+    flex: 0 0 auto !important;
+    background-color: var(--q-navy) !important;
+    border-bottom: 2px solid var(--q-gold) !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 15px !important;
 
-        // Logo Quranik
-        .o_menu_brand {
-            padding: 35px 15px !important;
-            color: var(--q-gold) !important;
-            font-size: 20px !important;
-            font-weight: 800 !important;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: block !important;
-        }
-
-        // --- SOLUTION FINALE POUR L'AFFICHAGE DES MENUS ---
-        .o_menu_sections {
-            display: flex !important;
-            flex-direction: column !important; // Force l'empilement vertical
-            width: 100% !important;
-            padding: 10px !important;
-            margin: 0 !important;
-            flex-grow: 1;
-            
-            // On force la visibilité contre le JS d'Odoo
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: none !important;
-
-            // Supprimer le bouton "+" (More)
-            .o_menu_sections_more {
-                display: none !important;
-            }
-
-            // Cibler chaque élément de liste (li)
-            li {
-                display: block !important; // Empêche le masquage
-                width: 100% !important;
-                position: relative !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-
-                // Liens (Sessions, Teachers, etc.)
-                a.o_nav_entry, a.nav-link, .dropdown-toggle {
-                    display: flex !important;
-                    align-items: center;
-                    padding: 12px 15px !important;
-                    color: rgba(255, 255, 255, 0.8) !important;
-                    font-size: 14px !important;
-                    font-weight: 500 !important;
-                    border-radius: 8px !important;
-                    text-decoration: none !important;
-                    transition: all 0.2s ease;
-
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.05) !important;
-                        color: var(--q-gold) !important;
-                        transform: translateX(5px);
-                    }
-                }
-
-                // Pour les menus déroulants
-                .dropdown-menu {
-                    position: static !important;
-                    display: block !important; // Reste déplié dans la sidebar
-                    background: transparent !important;
-                    border: none !important;
-                    box-shadow: none !important;
-                    padding: 0 0 0 20px !important;
-                    margin: 0 !important;
-                    float: none !important;
-
-                    .dropdown-item {
-                        color: rgba(255, 255, 255, 0.6) !important;
-                        font-size: 13px;
-                        padding: 8px 15px !important;
-                        &:hover { color: var(--q-gold) !important; background: transparent !important; }
-                    }
-                }
-            }
-        }
-
-        // Bas de barre (Systray)
-        .o_menu_systray {
-            margin-top: auto !important;
-            padding: 15px !important;
-            background: rgba(0, 0, 0, 0.2);
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: space-around !important;
-            
-            .dropdown-toggle:after { display: none !important; }
-            .o_user_avatar { border: 2px solid var(--q-gold); }
-        }
+    .o_menu_brand {
+        color: var(--q-gold) !important;
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-right: 20px !important;
     }
 
-    // 2. ZONE DE CONTENU (ACTION MANAGER)
-    // ------------------------------------------------------------
-    .o_action_manager {
-        grid-column: 2 !important;
-        padding: 25px !important;
+    // On remet les menus en ligne
+    .o_menu_sections {
         display: flex !important;
-        justify-content: center !important;
-        align-items: flex-start !important;
-
-        .o_content {
-            background-color: white !important;
-            border-radius: 16px !important;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
-            border: 1px solid #eef2f6 !important;
-            width: 100% !important;
-            max-width: 1500px !important;
-            height: 100% !important;
-            
-            // Scrollbar à gauche
-            direction: rtl !important;
-            overflow-y: scroll !important;
-            scrollbar-gutter: stable;
-
-            & > * {
-                direction: ltr !important;
-                text-align: left;
+        flex-direction: row !important;
+        align-items: center !important;
+        
+        li > a {
+            color: rgba(255, 255, 255, 0.8) !important;
+            padding: 10px 15px !important;
+            font-weight: 500;
+            &:hover {
+                color: var(--q-gold) !important;
+                background: rgba(255, 255, 255, 0.05) !important;
             }
         }
     }
 }
 
-// 3. SCROLLBARS & BOUTONS
+// 3. ZONE DE CONTENU "BOXED" ET CENTRÉE
 // ------------------------------------------------------------
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-thumb { background: var(--q-gold); border-radius: 10px; }
+.o_action_manager {
+    flex: 1 !important;
+    display: flex !important;
+    justify-content: center !important; // Centre la boite
+    align-items: flex-start !important;
+    padding: 25px !important; // Espace pour l'effet flottant
+    overflow: hidden !important;
 
+    .o_content {
+        background-color: #ffffff !important;
+        border-radius: 12px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+        border: 1px solid #eef2f6 !important;
+        width: 100% !important;
+        max-width: 1500px !important; // Largeur max de la zone de travail
+        height: 100% !important;
+        
+        // --- LA BARRE DE DÉFILEMENT À GAUCHE ---
+        direction: rtl !important; 
+        overflow-y: scroll !important;
+        scrollbar-gutter: stable;
+
+        // Réaligner le contenu interne à l'endroit
+        & > * {
+            direction: ltr !important; 
+            text-align: left;
+        }
+    }
+}
+
+// 4. STYLE DES BOUTONS ET SCROLLBARS
+// ------------------------------------------------------------
+
+// Boutons Quranik
 .btn-primary {
     background-color: var(--q-gold) !important;
     border: none !important;
-    box-shadow: 0 4px 10px var(--q-gold-light) !important;
+    border-radius: 6px !important;
+    &:hover { filter: brightness(1.1); }
+}
+
+// Scrollbar fine dorée
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { 
+    background: var(--q-gold) !important; 
+    border-radius: 10px; 
+}
+
+// Suppression du violet dans la barre de statut
+.o_statusbar_status .o_arrow_button.state_active {
+    background-color: var(--q-navy) !important;
+    color: var(--q-gold) !important;
+    background-image: none !important;
+    &:after { border-left-color: var(--q-navy) !important; }
 }
