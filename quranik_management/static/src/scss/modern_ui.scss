@@ -151,3 +151,72 @@ body.o_web_client {
 // Scrollbar fine dorée
 .o_content::-webkit-scrollbar { width: 5px; }
 .o_content::-webkit-scrollbar-thumb { background: var(--q-gold); border-radius: 10px; }
+
+// ==========================================
+// INTEGRATION DU MENU DES APPS DANS LA SIDEBAR
+// ==========================================
+
+// 1. Transformer le conteneur du menu
+.o_navbar_apps_menu {
+    .dropdown-menu {
+        // On le plaque contre la sidebar
+        position: fixed !important;
+        top: 60px !important; // Ajuste selon la hauteur de ton logo
+        left: 0 !important;
+        width: var(--sidebar-width) !important; // Même largeur que la barre
+        height: calc(100vh - 60px) !important;
+        
+        // On supprime le style "boite flottante"
+        background-color: var(--q-navy) !important;
+        border: none !important;
+        border-right: 1px solid rgba(197, 160, 89, 0.2) !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 10px !important;
+        margin: 0 !important;
+        
+        // On anime l'apparition pour un effet Vercel
+        animation: slideInLeft 0.2s ease-out;
+
+        // 2. Style des items (les applications)
+        .dropdown-item {
+            background: transparent !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            padding: 12px 15px !important;
+            border-radius: 8px !important;
+            margin-bottom: 4px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+
+            // Effet au survol
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.05) !important;
+                color: var(--q-gold) !important;
+                padding-left: 20px !important; // Petit décalage élégant
+            }
+
+            // On peut masquer les icônes si tu veux un look ultra-minimaliste
+            // ou les colorer en doré
+            img {
+                filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(10deg); 
+                margin-right: 10px;
+                width: 18px;
+            }
+        }
+    }
+}
+
+// 3. Nettoyer la scrollbar interne du menu
+.o_navbar_apps_menu .dropdown-menu::-webkit-scrollbar {
+    width: 4px;
+}
+.o_navbar_apps_menu .dropdown-menu::-webkit-scrollbar-thumb {
+    background: var(--q-gold);
+}
+
+// Animation fluide
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
