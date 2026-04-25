@@ -1,15 +1,16 @@
 // ============================================================
-// QURANIK - VERCEL ARCHITECTURE (ULTIME)
+// QURANIK - UNIFIED SIDEBAR (ALL MENUS VISIBLE)
 // ============================================================
 
 :root {
     --q-navy: #1B263B;
     --q-gold: #C5A059;
-    --q-bg: #f3f5f8;
-    --sidebar-width: 240px; // Largeur parfaite
+    --q-gold-light: rgba(197, 160, 89, 0.15);
+    --q-bg: #f4f7fa;
+    --sidebar-width: 230px;
 }
 
-// 1. RECONSTRUCTION TOTALE DU LAYOUT
+// 1. STRUCTURE DE BASE
 // ------------------------------------------------------------
 body.o_web_client {
     display: flex !important;
@@ -17,7 +18,6 @@ body.o_web_client {
     background-color: var(--q-bg) !important;
     overflow: hidden !important;
 
-    // LA SIDEBAR (BARRE LATERALE)
     .o_main_navbar {
         flex: 0 0 var(--sidebar-width) !important;
         width: var(--sidebar-width) !important;
@@ -25,101 +25,101 @@ body.o_web_client {
         background-color: var(--q-navy) !important;
         display: flex !important;
         flex-direction: column !important;
-        border-right: 1px solid rgba(197, 160, 89, 0.2) !important;
+        border-right: 1px solid rgba(197, 160, 89, 0.1) !important;
         padding: 0 !important;
         z-index: 1000 !important;
 
-        // LOGO / BRAND
+        // Brand Logo
         .o_menu_brand {
-            padding: 30px 10px !important;
+            padding: 35px 15px !important;
             color: var(--q-gold) !important;
-            font-size: 20px !important;
+            font-size: 19px !important;
             font-weight: 800 !important;
-            text-align: center !important;
+            text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
             display: block !important;
-            width: 100% !important;
         }
 
-        // --- FORCE L'AFFICHAGE VERTICAL DES MENUS ---
-        .o_menu_sections, .o_navbar_apps_menu {
+        // --- SOLUTION UNIFIÉE POUR TOUS LES MENUS ---
+        .o_menu_sections {
             display: flex !important;
             flex-direction: column !important; // Empilement vertical
             width: 100% !important;
             padding: 10px !important;
             margin: 0 !important;
-            background: transparent !important;
+            overflow-y: auto;
 
-            // Cache le bouton "+" (More) car on veut tout voir
+            // Désactiver le bouton "More" (+)
             .o_menu_sections_more { display: none !important; }
 
-            // On cible tous les éléments de liste
+            // Cibler TOUS les éléments (liens simples ET dropdowns)
             li {
                 display: block !important;
                 width: 100% !important;
                 position: static !important;
 
-                // On force le menu déroulant à être fixe et transparent
+                // 1. Style pour les liens SIMPLES (ceux qui manquaient)
+                .o_nav_entry, a.nav-link {
+                    padding: 12px 15px !important;
+                    color: rgba(255, 255, 255, 0.8) !important;
+                    font-size: 14px !important;
+                    font-weight: 500;
+                    border-radius: 8px !important;
+                    display: block !important;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.05) !important;
+                        color: var(--q-gold) !important;
+                        transform: translateX(5px);
+                    }
+                }
+
+                // 2. Style pour les SOUS-MENUS (Dropdowns)
                 .dropdown-menu {
                     position: static !important;
-                    display: block !important; // Toujours affiché
+                    display: block !important; // Reste ouvert dans la barre
                     background-color: transparent !important;
                     border: none !important;
                     box-shadow: none !important;
                     padding: 0 !important;
                     margin: 0 !important;
                     float: none !important;
-                    width: 100% !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
-
-                    a.dropdown-item, a.o_nav_entry {
-                        padding: 12px 15px !important;
-                        color: rgba(255, 255, 255, 0.7) !important;
-                        font-size: 14px !important;
-                        font-weight: 500;
-                        border-radius: 8px !important;
-                        display: block !important;
-                        transition: all 0.2s ease;
-
+                    
+                    .dropdown-item {
+                        padding: 10px 15px 10px 30px !important; // Décalage pour hiérarchie
+                        color: rgba(255, 255, 255, 0.6) !important;
+                        font-size: 13px;
+                        
                         &:hover {
-                            background-color: rgba(255, 255, 255, 0.05) !important;
                             color: var(--q-gold) !important;
-                            transform: translateX(5px);
-                        }
-
-                        &.active {
-                            background-color: rgba(197, 160, 89, 0.1) !important;
-                            color: var(--q-gold) !important;
-                            border-left: 3px solid var(--q-gold);
+                            background: transparent !important;
                         }
                     }
                 }
             }
         }
 
-        // BAS DE BARRE (UTILISATEUR)
+        // Bas de barre (Systray)
         .o_menu_systray {
-            margin-top: auto !important; // Pousse vers le bas
+            margin-top: auto !important;
             background: rgba(0, 0, 0, 0.2);
             padding: 15px !important;
             display: flex !important;
             flex-direction: row !important;
             justify-content: space-around !important;
-            
             .dropdown-toggle:after { display: none !important; }
         }
     }
 
-    // 2. CONTENU PRINCIPAL (BOXED)
+    // 2. CONTENU BOXED
     // ------------------------------------------------------------
     .o_action_manager {
         flex: 1 !important;
-        padding: 30px !important; // Espace tout autour
+        padding: 25px !important;
         display: flex !important;
         justify-content: center !important;
-        align-items: flex-start !important;
 
         .o_content {
             background-color: white !important;
@@ -143,12 +143,12 @@ body.o_web_client {
     }
 }
 
-// 3. SCROLLBAR DORÉE
+// 3. SCROLLBARS & BOUTONS
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: var(--q-gold); border-radius: 10px; }
 
-// 4. SUPPRESSION VIOLET
 .btn-primary {
     background-color: var(--q-gold) !important;
     border: none !important;
+    box-shadow: 0 4px 10px var(--q-gold-light) !important;
 }
