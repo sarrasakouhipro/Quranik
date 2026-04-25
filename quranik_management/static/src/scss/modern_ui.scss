@@ -1,168 +1,151 @@
 // ==========================================
-// QURANIK MODERN DESIGN (Vercel Style)
+// QURANIK - VERCEL & LINEAR PREMIUM EDITION
 // ==========================================
 
 :root {
-    // Palette de couleurs
-    --q-marine-deep: #0f172a;    // Marine très sombre (fond)
-    --q-marine-nav: #1B263B;     // Marine Odoo (navbar)
-    --q-gold: #C5A059;           // Doré primaire
-    --q-gold-light: #dfbd7a;     // Doré survol
-    --q-bg-light: #f8fafc;       // Fond de l'application
-    --q-border: #e2e8f0;         // Bordures fines style Vercel
+    --q-marine-dark: #0f172a;
+    --q-marine-nav: #1B263B;
+    --q-gold: #C5A059;
+    --q-gold-glow: rgba(197, 160, 89, 0.4);
+    --q-bg-app: #fcfcfd; // Fond ultra-propre
+    --glass-bg: rgba(255, 255, 255, 0.8);
     
-    // Surcharge des variables Odoo
+    // Override Odoo
     --primary: var(--q-gold) !important;
     --o-brand-primary: var(--q-gold) !important;
-    --o-brand-odoo: var(--q-marine-nav) !important;
-    --o-datepicker-week-color: var(--q-gold) !important;
 }
 
-// 1. MISE EN PAGE "BOXED" ET MODERNE
+// 1. FOND LUMINEUX (L'effet "Spotlight" de Vercel)
 // ------------------------------------------
 body.o_web_client {
-    background-color: var(--q-bg-light) !important;
+    background-color: var(--q-bg-app) !important;
+    // Ajout d'un dégradé radial discret pour simuler une source lumineuse
+    background-image: radial-gradient(at 0% 0%, rgba(197, 160, 89, 0.05) 0px, transparent 50%),
+                      radial-gradient(at 100% 0%, rgba(27, 38, 59, 0.05) 0px, transparent 50%) !important;
 
     .o_action_manager {
-        background-color: var(--q-bg-light) !important;
-        padding: 1.5rem !important; // Espace autour de la "boîte"
+        background: transparent !important;
+        padding: 24px !important;
 
         .o_content {
             background-color: #ffffff !important;
-            border: 1px solid var(--q-border) !important;
-            border-radius: 12px !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            border-radius: 16px !important;
+            // L'ombre "Vercel" : plusieurs couches très fines
+            box-shadow: 0 0 0 1px rgba(0,0,0,.03), 
+                        0 2px 4px rgba(0,0,0,.05), 
+                        0 12px 24px rgba(0,0,0,.05) !important;
             margin: 0 auto !important;
-            max-width: 1400px !important;
-            overflow: hidden !important;
+            max-width: 1500px !important;
         }
     }
 }
 
-// 2. BARRE DE NAVIGATION (NAVBAR)
+// 2. NAVBAR STYLE GLASSMORPHISM
 // ------------------------------------------
 .o_main_navbar {
-    background-color: var(--q-marine-nav) !important;
-    border-bottom: 2px solid var(--q-gold) !important;
-    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: rgba(27, 38, 59, 0.95) !important; // Marine translucide
+    backdrop-filter: blur(12px); // Effet flou derrière la barre
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3) !important;
+    height: 50px !important;
+    display: flex;
+    align-items: center;
 
     .o_menu_brand {
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 700 !important;
         color: var(--q-gold) !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.5px;
+        text-shadow: 0 0 15px var(--q-gold-glow); // Touche lumineuse
     }
 
-    .o_menu_sections > li > a, .o_nav_entry {
+    .o_nav_entry, .o_menu_sections > li > a {
+        font-size: 0.9rem;
         font-weight: 500;
-        opacity: 0.9;
+        transition: all 0.2s ease;
         &:hover {
-            background-color: rgba(255,255,255,0.05) !important;
-            opacity: 1;
+            color: var(--q-gold) !important;
+            background: transparent !important;
         }
     }
 }
 
-// 3. BOUTONS STYLE SAAS (PLAT ET NET)
+// 3. BOUTONS AVEC EFFET DE LUMIÈRE (GLOW)
 // ------------------------------------------
-.btn {
-    border-radius: 6px !important; // Coins légèrement arrondis
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
 .btn-primary {
-    background-color: var(--q-gold) !important;
-    border: 1px solid var(--q-gold) !important;
+    background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
     color: white !important;
-    
+    box-shadow: 0 4px 14px 0 var(--q-gold-glow) !important; // Le halo doré
+    transition: all 0.3s ease !important;
+
     &:hover {
-        background-color: var(--q-gold-light) !important;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px 0 var(--q-gold-glow) !important;
+        filter: brightness(1.1);
     }
 }
 
-.btn-secondary, .btn-outline-primary {
-    background-color: white !important;
-    border: 1px solid var(--q-border) !important;
+.btn-secondary {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
     color: var(--q-marine-nav) !important;
-
+    border-radius: 8px !important;
+    
     &:hover {
         border-color: var(--q-gold) !important;
         color: var(--q-gold) !important;
+        background: #fcfcfd !important;
     }
 }
 
-// 4. BARRE DE STATUT (NETTOYAGE DU VIOLET)
+// 4. BARRE DE STATUT (STEPS MODERNE)
 // ------------------------------------------
 .o_statusbar_status {
-    border-radius: 6px;
-    overflow: hidden;
-
-    .o_arrow_button {
-        border: none !important;
-        background-image: none !important; // Tue le gradient violet
-        background-color: #f1f5f9 !important;
-        padding-left: 20px !important;
-        
-        &.state_active {
-            background-color: var(--q-marine-nav) !important;
-            color: var(--q-gold) !important;
-            font-weight: bold;
-
-            &:after { border-left-color: var(--q-marine-nav) !important; }
-        }
-        
-        &:not(.state_active):hover {
-            background-color: #e2e8f0 !important;
-        }
-    }
-}
-
-// 5. FORMULAIRES ET FEUILLES
-// ------------------------------------------
-.o_form_view {
-    .o_form_sheet_bg {
-        background: transparent !important;
-        padding: 0 !important;
-    }
-
-    .o_form_sheet {
-        border: none !important;
-        max-width: 100% !important;
-        min-width: 100% !important;
-    }
-
-    // Moderniser les inputs
-    input.o_field_widget, select.o_field_widget {
-        border: 1px solid var(--q-border) !important;
-        border-radius: 4px !important;
-        padding: 4px 8px !important;
-        
-        &:focus {
-            border-color: var(--q-gold) !important;
-            box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.1) !important;
-        }
-    }
-}
-
-// 6. CASES À COCHER ET BADGES
-// ------------------------------------------
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: var(--q-gold) !important;
-    border-color: var(--q-gold) !important;
-}
-
-.badge {
-    padding: 0.4em 0.8em !important;
-    border-radius: 20px !important;
-    font-weight: 600 !important;
+    gap: 8px; // Espace entre les flèches
     
-    &.badge-primary {
-        background-color: rgba(197, 160, 89, 0.1) !important;
-        color: var(--q-gold) !important;
-        border: 1px solid var(--q-gold) !important;
+    .o_arrow_button {
+        border-radius: 6px !important;
+        position: relative;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        margin-right: 5px;
+        color: #64748b !important;
+        
+        // On supprime l'ancienne flèche moche d'Odoo
+        &:after, &:before { display: none !important; }
+
+        &.state_active {
+            background: var(--q-marine-nav) !important;
+            color: var(--q-gold) !important;
+            border-color: var(--q-marine-nav) !important;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(27, 38, 59, 0.2);
+        }
     }
+}
+
+// 5. CHAMPS DE FORMULAIRE (FOCUS LUMINEUX)
+// ------------------------------------------
+input.o_field_widget, select.o_field_widget, textarea.o_field_widget {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+    transition: all 0.2s ease !important;
+
+    &:focus {
+        border-color: var(--q-gold) !important;
+        box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15) !important; // Halo au focus
+        outline: none !important;
+    }
+}
+
+// 6. BADGES ET TAGS
+// ------------------------------------------
+.badge-primary {
+    background: rgba(197, 160, 89, 0.1) !important;
+    color: var(--q-gold) !important;
+    border: 1px solid rgba(197, 160, 89, 0.2) !important;
+    backdrop-filter: blur(4px);
 }
