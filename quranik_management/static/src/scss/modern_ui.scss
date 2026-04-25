@@ -118,3 +118,79 @@ body.o_web_client {
         }
     }
 }
+
+// --- DEFINITION DES COULEURS ---
+$q-marine: #1B263B !important;
+$q-gold: #C5A059 !important;
+$q-gold-hover: #D4AF37 !important;
+
+// 1. SUPPRIMER LE VIOLET DU BOUTON "NOUVEAU" (جديد)
+// Odoo utilise souvent .btn-secondary ou .btn-outline-primary ici
+.o_control_panel .o_cp_buttons {
+    .btn-secondary, .btn-outline-primary, .btn-primary {
+        color: $q-gold;
+        border-color: $q-gold;
+        background-color: white;
+        border-radius: 8px;
+
+        &:hover {
+            background-color: $q-gold;
+            color: white;
+            border-color: $q-gold;
+        }
+    }
+}
+
+// 2. SUPPRIMER LE VIOLET DE LA BARRE DE STATUT (Statusbar)
+// On cible spécifiquement l'élément "COMPLETED" qui est actif
+.o_statusbar_status {
+    .o_arrow_button.state_active {
+        background-color: $q-marine; // Fond de l'étape active
+        background-image: none;      // Supprime les éventuels dégradés violets
+        color: $q-gold;              // Texte en doré
+        font-weight: bold;
+        border-color: $q-marine;
+
+        // La petite flèche après l'élément
+        &:after {
+            border-left-color: $q-marine;
+        }
+        // La petite flèche avant
+        &:before {
+            border-left-color: white; 
+        }
+    }
+}
+
+// 3. FORCER LE BLEU MARINE SUR LA BARRE DE NAVIGATION
+// On utilise un sélecteur très large pour être sûr
+header.navbar, .o_main_navbar {
+    background-color: $q-marine;
+    background: $q-marine;
+    border-bottom: 3px solid $q-gold;
+
+    .o_menu_brand, .o_nav_entry, .o_menu_sections > li > a {
+        color: white !important;
+        &:hover {
+            color: $q-gold !important;
+            background-color: rgba(255,255,255,0.05) !important;
+        }
+    }
+}
+
+// 4. EFFET BOXED (L'arrière-plan bleu marine profond)
+body.o_web_client {
+    background-color: #0d131f !important; // Un marine très sombre
+    
+    .o_action_manager {
+        background: transparent !important;
+        padding: 20px !important;
+
+        .o_content {
+            border-radius: 15px !important;
+            background: white !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+            border: 1px solid rgba(197, 160, 89, 0.3) !important;
+        }
+    }
+}
