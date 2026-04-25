@@ -1,196 +1,168 @@
+// ==========================================
+// QURANIK MODERN DESIGN (Vercel Style)
+// ==========================================
+
 :root {
-    // --- NOS COULEURS ---
-    --quranik-marine: #1B263B;
-    --quranik-gold: #C5A059;
-    --quranik-gold-light: #D4AF37;
-
-    // --- LE REMPLACEMENT INTELLIGENT ---
-    // On remplace les variables sources d'Odoo
-    --primary: var(--quranik-gold) !important;
-    --o-brand-primary: var(--quranik-gold) !important;
-    --o-brand-odoo: var(--quranik-marine) !important;
-    --o-navbar-background-color: var(--quranik-marine) !important;
-    --o-actionbar-background-color: #ffffff !important;
+    // Palette de couleurs
+    --q-marine-deep: #0f172a;    // Marine très sombre (fond)
+    --q-marine-nav: #1B263B;     // Marine Odoo (navbar)
+    --q-gold: #C5A059;           // Doré primaire
+    --q-gold-light: #dfbd7a;     // Doré survol
+    --q-bg-light: #f8fafc;       // Fond de l'application
+    --q-border: #e2e8f0;         // Bordures fines style Vercel
+    
+    // Surcharge des variables Odoo
+    --primary: var(--q-gold) !important;
+    --o-brand-primary: var(--q-gold) !important;
+    --o-brand-odoo: var(--q-marine-nav) !important;
+    --o-datepicker-week-color: var(--q-gold) !important;
 }
 
-// 2. Application globale sur tous les éléments "Primary" (Boutons, Checkboxes, Liens)
-.btn-primary, .o_tag_color_primary, .badge-primary {
-    background-color: var(--quranik-gold) !important;
-    border-color: var(--quranik-gold) !important;
-    color: white !important;
-}
-
-// 3. Forcer les cases à cocher (Checkboxes) et Radio boutons
-input[type="checkbox"]:checked, .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: var(--quranik-gold) !important;
-    border-color: var(--quranik-gold) !important;
-}
-
-// 4. Structure "Boxed" intelligente
+// 1. MISE EN PAGE "BOXED" ET MODERNE
+// ------------------------------------------
 body.o_web_client {
-    background-color: #f0f2f5 !important; // Fond gris clair derrière la boite
+    background-color: var(--q-bg-light) !important;
 
     .o_action_manager {
-        padding: 1.5rem !important;
-        
+        background-color: var(--q-bg-light) !important;
+        padding: 1.5rem !important; // Espace autour de la "boîte"
+
         .o_content {
+            background-color: #ffffff !important;
+            border: 1px solid var(--q-border) !important;
             border-radius: 12px !important;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important;
-            background: white !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
             margin: 0 auto !important;
-            max-width: 1400px !important; // Largeur de la boite
-            border: 1px solid #e0e0e0 !important;
+            max-width: 1400px !important;
+            overflow: hidden !important;
         }
     }
 }
 
-// 5. Nettoyage de la barre de navigation (Marine + Doré)
+// 2. BARRE DE NAVIGATION (NAVBAR)
+// ------------------------------------------
 .o_main_navbar {
-    border-bottom: 3px solid var(--quranik-gold) !important;
-    
-    .o_menu_brand, .o_nav_entry {
-        font-weight: bold !important;
-        color: var(--quranik-gold) !important;
+    background-color: var(--q-marine-nav) !important;
+    border-bottom: 2px solid var(--q-gold) !important;
+    font-family: 'Inter', -apple-system, sans-serif;
+
+    .o_menu_brand {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700 !important;
+        color: var(--q-gold) !important;
     }
-    
-    .o_menu_sections > li > a {
-        color: white !important;
+
+    .o_menu_sections > li > a, .o_nav_entry {
+        font-weight: 500;
+        opacity: 0.9;
         &:hover {
-            background-color: rgba(255,255,255,0.1) !important;
-        }
-    }
-}
-
-// Si une icône fait de la résistance (ex: icône de réglages)
-.o_setting_box .o_setting_right_pane .o_icon {
-    filter: sepia(100%) saturate(300%) hue-rotate(10deg); // Simule un effet doré
-}
-
-// --- VARIABLES DE RÉFÉRENCE ---
-$q-marine: #1B263B !important;
-$q-gold: #C5A059 !important;
-
-// 1. FORCER LA BARRE DE NAVIGATION (Le haut)
-.o_main_navbar {
-    background-color: $q-marine; // Force le bleu marine
-    background: $q-marine;       // Sécurité supplémentaire
-    border-bottom: 3px solid $q-gold;
-
-    // Le nom de l'app (Quranik) et les menus
-    .o_menu_brand, .o_nav_entry, .o_menu_sections > li > a {
-        color: white !important;
-        font-weight: 500 !important;
-        
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.1) !important;
-            color: $q-gold !important;
-        }
-    }
-}
-
-// 2. L'ARRIÈRE-PLAN DU MODE "BOXED"
-// Pour que l'effet "boîte" soit visible, il faut que le fond derrière soit sombre (Marine) 
-// ou gris très clair. Essayons un Bleu Marine très profond pour le contraste.
-body.o_web_client {
-    background-color: #0f172a !important; // Un bleu encore plus sombre pour le fond
-
-    .o_action_manager {
-        background: transparent !important; // On laisse voir le fond du body
-        padding: 20px 40px !important;
-
-        .o_content {
-            background-color: white !important; // La feuille de travail reste blanche
-            border-radius: 15px !important;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
-            border: 1px solid rgba(197, 160, 89, 0.2) !important; // Bordure dorée très discrète
-            overflow: auto !important;
-        }
-    }
-}
-
-// 3. LE MENU DÉROULANT (Celui avec les carrés en haut à gauche)
-.o_menu_apps .dropdown-menu {
-    background-color: $q-marine;
-    .dropdown-item {
-        color: white !important;
-        &:hover {
-            background-color: $q-gold;
-        }
-    }
-}
-
-// --- DEFINITION DES COULEURS ---
-$q-marine: #1B263B !important;
-$q-gold: #C5A059 !important;
-$q-gold-hover: #D4AF37 !important;
-
-// 1. SUPPRIMER LE VIOLET DU BOUTON "NOUVEAU" (جديد)
-// Odoo utilise souvent .btn-secondary ou .btn-outline-primary ici
-.o_control_panel .o_cp_buttons {
-    .btn-secondary, .btn-outline-primary, .btn-primary {
-        color: $q-gold;
-        border-color: $q-gold;
-        background-color: white;
-        border-radius: 8px;
-
-        &:hover {
-            background-color: $q-gold;
-            color: white;
-            border-color: $q-gold;
-        }
-    }
-}
-
-// 2. SUPPRIMER LE VIOLET DE LA BARRE DE STATUT (Statusbar)
-// On cible spécifiquement l'élément "COMPLETED" qui est actif
-.o_statusbar_status {
-    .o_arrow_button.state_active {
-        background-color: $q-marine; // Fond de l'étape active
-        background-image: none;      // Supprime les éventuels dégradés violets
-        color: $q-gold;              // Texte en doré
-        font-weight: bold;
-        border-color: $q-marine;
-
-        // La petite flèche après l'élément
-        &:after {
-            border-left-color: $q-marine;
-        }
-        // La petite flèche avant
-        &:before {
-            border-left-color: white; 
-        }
-    }
-}
-
-// 3. FORCER LE BLEU MARINE SUR LA BARRE DE NAVIGATION
-// On utilise un sélecteur très large pour être sûr
-header.navbar, .o_main_navbar {
-    background-color: $q-marine;
-    background: $q-marine;
-    border-bottom: 3px solid $q-gold;
-
-    .o_menu_brand, .o_nav_entry, .o_menu_sections > li > a {
-        color: white !important;
-        &:hover {
-            color: $q-gold !important;
             background-color: rgba(255,255,255,0.05) !important;
+            opacity: 1;
         }
     }
 }
 
-// 4. EFFET BOXED (L'arrière-plan bleu marine profond)
-body.o_web_client {
-    background-color: #0d131f !important; // Un marine très sombre
-    
-    .o_action_manager {
-        background: transparent !important;
-        padding: 20px !important;
+// 3. BOUTONS STYLE SAAS (PLAT ET NET)
+// ------------------------------------------
+.btn {
+    border-radius: 6px !important; // Coins légèrement arrondis
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
 
-        .o_content {
-            border-radius: 15px !important;
-            background: white !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-            border: 1px solid rgba(197, 160, 89, 0.3) !important;
+.btn-primary {
+    background-color: var(--q-gold) !important;
+    border: 1px solid var(--q-gold) !important;
+    color: white !important;
+    
+    &:hover {
+        background-color: var(--q-gold-light) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+    }
+}
+
+.btn-secondary, .btn-outline-primary {
+    background-color: white !important;
+    border: 1px solid var(--q-border) !important;
+    color: var(--q-marine-nav) !important;
+
+    &:hover {
+        border-color: var(--q-gold) !important;
+        color: var(--q-gold) !important;
+    }
+}
+
+// 4. BARRE DE STATUT (NETTOYAGE DU VIOLET)
+// ------------------------------------------
+.o_statusbar_status {
+    border-radius: 6px;
+    overflow: hidden;
+
+    .o_arrow_button {
+        border: none !important;
+        background-image: none !important; // Tue le gradient violet
+        background-color: #f1f5f9 !important;
+        padding-left: 20px !important;
+        
+        &.state_active {
+            background-color: var(--q-marine-nav) !important;
+            color: var(--q-gold) !important;
+            font-weight: bold;
+
+            &:after { border-left-color: var(--q-marine-nav) !important; }
         }
+        
+        &:not(.state_active):hover {
+            background-color: #e2e8f0 !important;
+        }
+    }
+}
+
+// 5. FORMULAIRES ET FEUILLES
+// ------------------------------------------
+.o_form_view {
+    .o_form_sheet_bg {
+        background: transparent !important;
+        padding: 0 !important;
+    }
+
+    .o_form_sheet {
+        border: none !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    // Moderniser les inputs
+    input.o_field_widget, select.o_field_widget {
+        border: 1px solid var(--q-border) !important;
+        border-radius: 4px !important;
+        padding: 4px 8px !important;
+        
+        &:focus {
+            border-color: var(--q-gold) !important;
+            box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.1) !important;
+        }
+    }
+}
+
+// 6. CASES À COCHER ET BADGES
+// ------------------------------------------
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: var(--q-gold) !important;
+    border-color: var(--q-gold) !important;
+}
+
+.badge {
+    padding: 0.4em 0.8em !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+    
+    &.badge-primary {
+        background-color: rgba(197, 160, 89, 0.1) !important;
+        color: var(--q-gold) !important;
+        border: 1px solid var(--q-gold) !important;
     }
 }
