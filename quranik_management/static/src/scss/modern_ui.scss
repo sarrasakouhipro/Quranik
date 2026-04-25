@@ -1,51 +1,44 @@
 // ==========================================
-// QURANIK - VERCEL ULTIMATE EDITION
+// QURANIK - STRUCTURE BOXED & SCROLL GAUCHE
 // ==========================================
 
 :root {
-    --q-marine: #1B263B;
+    --q-navy: #1B263B;
     --q-gold: #C5A059;
-    --q-gold-light: rgba(197, 160, 89, 0.2);
-    --q-bg-app: #f0f2f5; 
-    --primary: var(--q-gold) !important;
+    --q-gold-glow: rgba(197, 160, 89, 0.2);
+    --q-bg: #f8fafc;
 }
 
-// 1. STRUCTURE GLOBALE ET CENTRAGE (LE FIX)
-// ------------------------------------------
+// 1. FORCER LE CENTRE ET LE FOND
 body.o_web_client {
-    background-color: var(--q-bg-app) !important;
-
+    background-color: var(--q-bg) !important;
+    
+    // Conteneur principal d'Odoo
     .o_action_manager {
-        // Force le centrage de la boite blanche
         display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important; 
-        justify-content: flex-start !important;
+        justify-content: center !important; // Centre la boite horizontalement
+        align-items: flex-start !important;
         background: transparent !important;
-        padding: 20px !important;
-        overflow: hidden !important;
+        padding: 25px !important; // Espace tout autour pour l'effet boxed
+        height: 100% !important;
 
+        // LA BOITE BLANCHE (LE CONTENU)
         .o_content {
-            // Configuration de la "Box"
-            flex: 0 1 1400px !important; // Largeur max de 1400px
+            flex: 0 1 1400px !important; // Largeur max 1400px
             width: 100% !important;
             height: 100% !important;
-            margin: 0 auto !important; // Centrage horizontal
-            
-            // Design Vercel (Ombres et bords)
-            background-color: #ffffff !important;
-            border-radius: 12px !important;
+            background-color: white !important;
+            border-radius: 16px !important;
             border: 1px solid rgba(0, 0, 0, 0.05) !important;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
+            
+            // --- GESTION DE LA SCROLLBAR À GAUCHE ---
+            direction: rtl !important;    // Force la scrollbar à gauche
+            overflow-y: scroll !important; // Toujours visible
+            scrollbar-gutter: stable;      // Empêche le contenu de bouger
 
-            // LA BARRE DE DÉFILEMENT À GAUCHE
-            direction: rtl !important; 
-            overflow-y: scroll !important; 
-            scrollbar-gutter: stable;
-
-            // RÉALIGNEMENT DU CONTENU INTÉRIEUR
-            // Important : on remet en LTR (ou RTL si vous préférez l'arabe)
-            // sans casser le centrage de la boite
+            // --- RÉALIGNEMENT DU CONTENU (POUR NE PAS ÊTRE EN ARABE) ---
+            // On remet le contenu en LTR (gauche à droite) à l'intérieur
             & > * {
                 direction: ltr !important; 
                 text-align: left;
@@ -56,83 +49,46 @@ body.o_web_client {
     }
 }
 
-// 2. NAVBAR MODERNE (MARINE & GOLD)
+// 2. DESIGN DE LA SCROLLBAR (STYLE SIDEBAR FINE)
 // ------------------------------------------
-.o_main_navbar {
-    background-color: var(--q-marine) !important;
-    border-bottom: 2px solid var(--q-gold) !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.o_content::-webkit-scrollbar {
+    width: 6px !important; // Très fine
+}
 
-    .o_menu_brand {
-        color: var(--q-gold) !important;
-        font-weight: 800 !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+.o_content::-webkit-scrollbar-track {
+    background: #f1f5f9 !important; // Un gris très clair pour la piste
+    border-radius: 16px 0 0 16px;    // Arrondi sur le bord gauche de la boite
+}
+
+.o_content::-webkit-scrollbar-thumb {
+    background: var(--q-gold) !important; // Votre doré
+    border-radius: 10px;
+    &:hover {
+        background: var(--q-navy) !important;
     }
 }
 
-// 3. BOUTONS LUMINEUX (STYLE VERCEL)
+// 3. NAVBAR & BOUTONS (LE LOOK VERCEL)
 // ------------------------------------------
+.o_main_navbar {
+    background-color: var(--q-navy) !important;
+    border-bottom: 2px solid var(--q-gold) !important;
+    
+    .o_menu_brand { color: var(--q-gold) !important; font-weight: bold; }
+}
+
 .btn-primary {
     background: var(--q-gold) !important;
     border: none !important;
     border-radius: 6px !important;
-    box-shadow: 0 0 15px var(--q-gold-light) !important; // Effet lumineux
-    transition: all 0.2s ease;
-
-    &:hover {
-        transform: translateY(-1px);
-        filter: brightness(1.1);
-        box-shadow: 0 5px 20px var(--q-gold-light) !important;
-    }
+    box-shadow: 0 4px 10px var(--q-gold-glow) !important;
+    &:hover { transform: translateY(-1px); filter: brightness(1.1); }
 }
 
-.btn-secondary, .btn-outline-primary {
-    background: white !important;
-    border: 1px solid #e2e8f0 !important;
-    color: var(--q-marine) !important;
-    
-    &:hover {
-        border-color: var(--q-gold) !important;
-        color: var(--q-gold) !important;
-    }
-}
-
-// 4. BARRE DE STATUT (PLUS DE VIOLET)
-// ------------------------------------------
-.o_statusbar_status {
-    .o_arrow_button.state_active {
-        background-color: var(--q-marine) !important;
-        color: var(--q-gold) !important;
-        font-weight: bold;
-        background-image: none !important;
-        &:after { border-left-color: var(--q-marine) !important; }
-    }
-}
-
-// 5. SCROLLBAR FINE ET DORÉE (GHOST STYLE)
-// ------------------------------------------
-.o_content::-webkit-scrollbar {
-    width: 5px !important;
-}
-
-.o_content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.o_content::-webkit-scrollbar-thumb {
-    background: var(--q-gold) !important;
-    border-radius: 10px;
-    &:hover {
-        background: var(--q-marine) !important;
-    }
-}
-
-// 6. MENUS DÉROULANTS FLOTTANTS
-// ------------------------------------------
-.dropdown-menu {
-    border: none !important;
-    border-radius: 10px !important;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
-    padding: 8px !important;
+// Suppression du violet dans la barre de statut
+.o_statusbar_status .o_arrow_button.state_active {
+    background-color: var(--q-navy) !important;
+    color: var(--q-gold) !important;
+    background-image: none !important;
+    &:after { border-left-color: var(--q-navy) !important; }
 }
