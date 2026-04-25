@@ -1,5 +1,5 @@
 // ============================================================
-// QURANIK - ULTIMATE VERCEL DESIGN (SIDEBAR + BOXED + GOLD)
+// QURANIK - DESIGN VERCEL (SIDEBAR VERTICALE + BOXED)
 // ============================================================
 
 :root {
@@ -7,15 +7,15 @@
     --q-gold: #C5A059;
     --q-gold-light: rgba(197, 160, 89, 0.15);
     --q-bg-app: #f0f2f5;
-    --sidebar-width: 280px;
+    --sidebar-width: 260px;
     
-    // Override Odoo Global Variables
+    // Variables globales Odoo
     --primary: var(--q-gold) !important;
     --o-brand-primary: var(--q-gold) !important;
     --o-brand-odoo: var(--q-navy) !important;
 }
 
-// 1. STRUCTURE GLOBALE : SIDEBAR À GAUCHE & CONTENU À DROITE
+// 1. STRUCTURE : BARRE LATÉRALE À GAUCHE
 // ------------------------------------------------------------
 body.o_web_client {
     display: flex !important;
@@ -23,7 +23,6 @@ body.o_web_client {
     background-color: var(--q-bg-app) !important;
     overflow: hidden !important;
 
-    // LA SIDEBAR (ANCIENNE NAVBAR)
     .o_main_navbar {
         flex: 0 0 var(--sidebar-width) !important;
         width: var(--sidebar-width) !important;
@@ -31,46 +30,44 @@ body.o_web_client {
         background-color: var(--q-navy) !important;
         border-right: 1px solid rgba(197, 160, 89, 0.2) !important;
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: column !important; // Force l'empilement vertical
         padding: 0 !important;
         z-index: 100 !important;
 
-        // Logo / Marque Quranik
+        // Logo Quranik
         .o_menu_brand {
-            padding: 30px 20px !important;
-            font-size: 22px !important;
+            padding: 40px 20px !important;
+            font-size: 24px !important;
             font-weight: 800 !important;
             color: var(--q-gold) !important;
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 20px;
         }
 
-        // Intégration du menu des Apps et des Sections
-        .o_navbar_apps_menu, .o_menu_sections {
+        // --- CORRECTION : MENUS VERTICAUX (L'UN EN DESSOUS DE L'AUTRE) ---
+        .o_menu_sections {
+            display: flex !important;
+            flex-direction: column !important; // ALIGNEMENT VERTICAL
             width: 100% !important;
-            background: transparent !important;
-            
-            // On casse les dropdowns pour les intégrer directement
-            .dropdown-menu {
-                position: static !important;
-                display: block !important;
-                background: transparent !important;
-                border: none !important;
-                box-shadow: none !important;
-                padding: 10px 15px !important;
-                width: 100% !important;
-                float: none !important;
+            padding: 0 15px !important;
+            margin: 0 !important;
 
-                .dropdown-item, .o_nav_entry, a {
-                    color: rgba(255, 255, 255, 0.7) !important;
+            > li {
+                width: 100% !important;
+                display: block !important;
+                margin-bottom: 5px;
+
+                > a {
                     padding: 12px 15px !important;
+                    color: rgba(255, 255, 255, 0.8) !important;
                     border-radius: 8px !important;
-                    margin-bottom: 4px;
-                    transition: all 0.2s;
-                    display: flex;
-                    align-items: center;
+                    font-weight: 500;
+                    display: block !important;
+                    width: 100%;
+                    transition: all 0.2s ease;
 
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.05) !important;
@@ -81,16 +78,16 @@ body.o_web_client {
                     &.active {
                         background-color: var(--q-gold-light) !important;
                         color: var(--q-gold) !important;
-                        box-shadow: inset 3px 0 0 var(--q-gold);
+                        border-left: 3px solid var(--q-gold);
                     }
                 }
             }
         }
 
-        // Bas de page (Utilisateur, Notifications)
+        // Bas de la barre (Utilisateur, Admin)
         .o_menu_systray {
             margin-top: auto !important;
-            padding: 15px !important;
+            padding: 20px !important;
             background: rgba(0, 0, 0, 0.2);
             display: flex !important;
             justify-content: space-around !important;
@@ -101,7 +98,7 @@ body.o_web_client {
         }
     }
 
-    // 2. ZONE DE CONTENU (BOÎTE CENTRÉE & MODERNE)
+    // 2. CONTENU PRINCIPAL (BOXED)
     // ------------------------------------------------------------
     .o_action_manager {
         flex: 1 !important;
@@ -112,20 +109,19 @@ body.o_web_client {
         overflow: hidden !important;
 
         .o_content {
-            flex: 0 1 1400px !important; // Largeur max de la boite
+            flex: 0 1 1500px !important;
             width: 100% !important;
             height: 100% !important;
             background-color: #ffffff !important;
             border-radius: 20px !important;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
             border: 1px solid #eef2f6 !important;
             
-            // Barre de défilement à gauche
+            // Scrollbar à gauche
             direction: rtl !important;
             overflow-y: scroll !important;
             scrollbar-gutter: stable;
 
-            // Réaligner le contenu à l'intérieur
             & > * {
                 direction: ltr !important;
                 text-align: left;
@@ -134,50 +130,30 @@ body.o_web_client {
     }
 }
 
-// 3. WIDGETS & BOUTONS (SUPPRESSION DU VIOLET)
+// 3. BOUTONS ET ÉLÉMENTS (ZÉRO VIOLET)
 // ------------------------------------------------------------
-
-// Boutons Primaires (Dorés avec Glow)
 .btn-primary {
     background-color: var(--q-gold) !important;
     border: none !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 12px var(--q-gold-light) !important;
-    transition: all 0.2s;
-
-    &:hover {
-        transform: translateY(-1px);
-        filter: brightness(1.1);
-        box-shadow: 0 6px 18px var(--q-gold-light) !important;
-    }
+    &:hover { filter: brightness(1.1); transform: translateY(-1px); }
 }
 
-// Barre de statut (Statusbar)
 .o_statusbar_status {
     .o_arrow_button.state_active {
         background-color: var(--q-navy) !important;
         color: var(--q-gold) !important;
-        background-image: none !important; // Supprime le gradient violet
-        font-weight: bold;
+        background-image: none !important;
         &:after { border-left-color: var(--q-navy) !important; }
     }
 }
 
-// Champs de formulaire au focus
-input.o_field_widget:focus, select.o_field_widget:focus {
-    border-color: var(--q-gold) !important;
-    box-shadow: 0 0 0 3px var(--q-gold-light) !important;
-}
-
-// 4. SCROLLBAR PERSONNALISÉE (DORÉE & FINE)
-// ------------------------------------------------------------
+// Scrollbar fine dorée
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { 
     background: var(--q-gold); 
     border-radius: 10px; 
-    &:hover { background: var(--q-navy); }
 }
 
-// Nettoyage final des flèches dropdown
+// Supprimer les icônes de flèches inutiles
 .dropdown-toggle:after { display: none !important; }
