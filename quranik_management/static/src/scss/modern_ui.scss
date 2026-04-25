@@ -341,3 +341,89 @@ body.dark {
 .progress-bar {
   background-color: $secondary !important;
 }
+
+/* =========================
+   PRIMARY ACTION BUTTON (ex: Envoyer message)
+========================= */
+
+.oe_highlight,
+.btn-primary,
+.o_form_button_save {
+  background: $secondary !important; // doré
+  border-color: $secondary !important;
+  color: #000 !important;
+  border-radius: 8px;
+  font-weight: 500;
+
+  &:hover {
+    background: darken($secondary, 8%) !important;
+    border-color: darken($secondary, 8%) !important;
+    color: #000 !important;
+  }
+}
+/* =========================
+   ICONS (global)
+========================= */
+
+.o_action_manager i,
+.o_control_panel .o_cp_icons i,
+.o_form_view .oe_button_box i,
+.o_list_view .o_list_record_selector i,
+.fa,
+.oi {
+  color: $o-brand-primary !important;
+  transition: color 0.2s ease;
+}
+
+/* Hover → doré */
+.o_action_manager i:hover,
+.o_control_panel .o_cp_icons i:hover,
+.fa:hover,
+.oi:hover {
+  color: $secondary !important;
+}
+/* =========================
+   PAGINATION / ARROWS
+========================= */
+
+.o_pager .o_pager_previous,
+.o_pager .o_pager_next,
+.o_pager button {
+  color: $o-brand-primary !important;
+}
+
+.o_pager .o_pager_previous:hover,
+.o_pager .o_pager_next:hover,
+.o_pager button:hover {
+  color: $secondary !important;
+}
+
+.o_icon_button,
+.btn-icon {
+  color: $o-brand-primary !important;
+
+  &:hover {
+    color: $secondary !important;
+  }
+}
+/* =========================
+   CHATTER TABS
+========================= */
+
+.o_ChatterTopbar_button {
+  color: $o-brand-primary !important;
+
+  &.o-active {
+    color: $secondary !important;
+    border-bottom: 2px solid $secondary;
+  }
+}
+.btn-secondary,
+.btn-light {
+  color: $o-brand-primary !important;
+
+  &:hover {
+    color: $secondary !important;
+  }
+}
+
