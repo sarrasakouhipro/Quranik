@@ -100,3 +100,75 @@ a {
     border-radius: 20px !important;
     border: 1px solid #ddd;
 }
+
+// Boutons d'action dans la barre de statut (souvent violets par défaut)
+.o_statusbar_buttons {
+    .btn-primary {
+        background-color: $quranik-gold !important;
+        border-color: $quranik-gold !important;
+    }
+    
+    // Boutons secondaires dans le statut
+    .btn-secondary {
+        color: $quranik-marine !important;
+        border-color: $quranik-marine !important;
+        &:hover {
+            background-color: rgba(27, 38, 59, 0.1) !important;
+        }
+    }
+}
+
+// L'indicateur d'étape actuelle (la flèche d'état)
+.o_arrow_button.state_active {
+    background-color: $quranik-marine !important;
+    color: white !important;
+    &:after {
+        border-left-color: $quranik-marine !important; // La pointe de la flèche
+    }
+}
+
+.o_control_panel {
+    .o_cp_buttons .btn-primary {
+        background-color: $quranik-gold !important;
+        border-color: $quranik-gold !important;
+    }
+}
+
+// Boutons de filtres actifs et pagination
+.o_searchview_facet {
+    background-color: $quranik-marine !important;
+    .o_searchview_facet_label {
+        background-color: $quranik-marine !important;
+        color: white;
+    }
+}
+
+.o_pager_counter {
+    color: $quranik-marine !important;
+}
+
+.o_pager_previous, .o_pager_next {
+    color: $quranik-marine !important;
+    &:hover {
+        background-color: $quranik-gold !important;
+        color: white !important;
+    }
+}
+
+// Checkbox sélectionnées dans les listes
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: $quranik-gold !important;
+    border-color: $quranik-gold !important;
+}
+
+// Icône de l'application active dans le menu
+.o_app.active {
+    background-color: $quranik-marine !important;
+}
+
+// Forcer les variables globales
+:root {
+    --primary: #C5A059 !important; // Le violet devient Doré
+    --o-brand-primary: #C5A059 !important;
+    --o-brand-odoo: #1B263B !important; // Le logo/fond devient Marine
+}
