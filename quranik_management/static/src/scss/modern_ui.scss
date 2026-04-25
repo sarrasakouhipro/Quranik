@@ -172,3 +172,53 @@ a {
     --o-brand-primary: #C5A059 !important;
     --o-brand-odoo: #1B263B !important; // Le logo/fond devient Marine
 }
+
+// 1. Bouton "Nouveau" (جديد) et boutons d'action du Control Panel
+.o_control_panel {
+    .btn-secondary {
+        // Pour le bouton "Nouveau" qui est souvent en outline/blanc avec texte violet
+        color: $quranik-marine !important;
+        border-color: $quranik-marine !important;
+        background-color: white !important;
+        border-radius: 8px !important;
+
+        &:hover {
+            background-color: $quranik-marine !important;
+            color: white !important;
+        }
+    }
+}
+
+// 2. Le Widget Statusbar (Completed / Terminé)
+.o_statusbar_status {
+    .o_arrow_button {
+        // Pour les étapes non actives
+        color: #666666 !important;
+        
+        &.state_active {
+            // L'étape actuelle (violette sur ton image)
+            background-color: $quranik-marine !important;
+            color: $quranik-gold !important; // Texte doré sur fond marine
+            font-weight: bold;
+
+            // La petite flèche triangulaire (le pseudo-élément)
+            &:after {
+                border-left-color: $quranik-marine !important;
+            }
+            &:before {
+                border-left-color: white !important; // Bordure de séparation
+            }
+        }
+    }
+}
+
+// 3. Correction globale pour les boutons d'action "Outline"
+.btn-outline-primary {
+    color: $quranik-gold !important;
+    border-color: $quranik-gold !important;
+    
+    &:hover {
+        background-color: $quranik-gold !important;
+        color: white !important;
+    }
+}
