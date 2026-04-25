@@ -230,3 +230,58 @@ input.o_field_widget, select.o_field_widget, textarea.o_field_widget {
     border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
     margin: 4px 0 !important;
 }
+
+// ==========================================
+// SCROLLBAR : TOUJOURS VISIBLE ET À GAUCHE
+// ==========================================
+
+body.o_web_client {
+    // 1. Déplacement de la scrollbar à gauche pour le contenu principal
+    .o_action_manager .o_content {
+        overflow-y: scroll !important; // Toujours visible
+        direction: rtl !important;    // Inverse la direction (met la barre à gauche)
+        scrollbar-gutter: stable;      // Réserve l'espace pour éviter les sauts de mise en page
+        
+        // On remet le contenu à l'endroit (LTR) pour que le texte ne soit pas inversé
+        // Si votre projet est principalement en Arabe, remplacez 'ltr' par 'rtl' ici.
+        > * {
+            direction: ltr !important; 
+            text-align: left;
+        }
+    }
+
+    // 2. Style de la scrollbar (Vercel Style)
+    // On la rend fine pour qu'elle ne soit pas intrusive à gauche
+    .o_content::-webkit-scrollbar {
+        width: 6px !important;
+    }
+
+    .o_content::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.02) !important;
+        border-radius: 10px;
+    }
+
+    .o_content::-webkit-scrollbar-thumb {
+        background: var(--q-gold) !important; // Elle reste dorée
+        border-radius: 10px;
+        border: 1px solid transparent;
+        background-clip: content-box;
+        
+        &:hover {
+            background: var(--q-marine-nav) !important; // Devient marine au survol
+        }
+    }
+}
+
+// 3. Cas particulier pour les menus déroulants (dropdowns)
+// Si vous voulez aussi la barre à gauche dans les menus
+.dropdown-menu {
+    direction: rtl !important;
+    overflow-y: auto !important;
+    max-height: 400px;
+    
+    .dropdown-item {
+        direction: ltr !important;
+        text-align: left;
+    }
+}
