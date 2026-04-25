@@ -43,7 +43,7 @@
 
     'assets': {
     'web.assets_backend': [
-        'quranik_management/static/src/scss/style.scss',
+        'quranik_management/static/src/scss/modern_ui.scss',
     ],
     },
     
