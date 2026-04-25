@@ -1,68 +1,69 @@
 // ============================================================
-// QURANIK - SIDEBAR SLIM & FORCE VERTICAL (NO MORE "+" MENU)
+// QURANIK - VERCEL ARCHITECTURE (ULTIME)
 // ============================================================
 
 :root {
     --q-navy: #1B263B;
     --q-gold: #C5A059;
-    --q-bg: #f4f7fa;
-    --sidebar-width: 220px; // Largeur fine et élégante
+    --q-bg: #f3f5f8;
+    --sidebar-width: 240px; // Largeur parfaite
 }
 
-// 1. RESTRUCTURATION ARCHITECTURALE (GRID)
+// 1. RECONSTRUCTION TOTALE DU LAYOUT
 // ------------------------------------------------------------
 body.o_web_client {
-    display: grid !important;
-    grid-template-columns: var(--sidebar-width) 1fr !important;
-    grid-template-rows: 100vh !important;
+    display: flex !important;
+    flex-direction: row !important;
     background-color: var(--q-bg) !important;
     overflow: hidden !important;
 
+    // LA SIDEBAR (BARRE LATERALE)
     .o_main_navbar {
-        grid-column: 1 !important;
+        flex: 0 0 var(--sidebar-width) !important;
+        width: var(--sidebar-width) !important;
+        height: 100vh !important;
+        background-color: var(--q-navy) !important;
         display: flex !important;
         flex-direction: column !important;
-        background-color: var(--q-navy) !important;
-        height: 100vh !important;
-        border-right: 1px solid rgba(197, 160, 89, 0.1) !important;
+        border-right: 1px solid rgba(197, 160, 89, 0.2) !important;
         padding: 0 !important;
-        z-index: 10 !important;
+        z-index: 1000 !important;
 
-        // Logo Quranik
+        // LOGO / BRAND
         .o_menu_brand {
-            padding: 35px 15px !important;
+            padding: 30px 10px !important;
             color: var(--q-gold) !important;
-            font-size: 18px !important;
+            font-size: 20px !important;
             font-weight: 800 !important;
-            text-align: center;
+            text-align: center !important;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
+            display: block !important;
+            width: 100% !important;
         }
 
-        // --- LA SOLUTION RADICALE POUR LES MENUS ---
-        .o_menu_sections {
+        // --- FORCE L'AFFICHAGE VERTICAL DES MENUS ---
+        .o_menu_sections, .o_navbar_apps_menu {
             display: flex !important;
-            flex-direction: column !important; // FORCE L'EMPILAGE VERTICAL
+            flex-direction: column !important; // Empilement vertical
             width: 100% !important;
-            padding: 10px 12px !important;
+            padding: 10px !important;
             margin: 0 !important;
-            flex-grow: 1;
+            background: transparent !important;
 
-            // On force Odoo à ignorer le menu "More" (+)
-            .o_menu_sections_more {
-                display: none !important; // ON CACHE LE BOUTON "+"
-            }
+            // Cache le bouton "+" (More) car on veut tout voir
+            .o_menu_sections_more { display: none !important; }
 
-            // On force TOUS les éléments li à être visibles et verticaux
+            // On cible tous les éléments de liste
             li {
                 display: block !important;
                 width: 100% !important;
                 position: static !important;
 
-                // On neutralise le comportement "dropdown" d'Odoo
+                // On force le menu déroulant à être fixe et transparent
                 .dropdown-menu {
                     position: static !important;
-                    display: block !important; // TOUJOURS VISIBLE
+                    display: block !important; // Toujours affiché
                     background-color: transparent !important;
                     border: none !important;
                     box-shadow: none !important;
@@ -70,59 +71,60 @@ body.o_web_client {
                     margin: 0 !important;
                     float: none !important;
                     width: 100% !important;
-                }
+                    opacity: 1 !important;
+                    visibility: visible !important;
 
-                // Style des liens (Sessions, Teachers, etc.)
-                a.dropdown-item, a.o_nav_entry {
-                    padding: 10px 15px !important;
-                    color: rgba(255, 255, 255, 0.7) !important;
-                    font-size: 13.5px !important;
-                    font-weight: 500 !important;
-                    border-radius: 6px !important;
-                    display: block !important;
-                    width: 100% !important;
-                    transition: all 0.2s;
+                    a.dropdown-item, a.o_nav_entry {
+                        padding: 12px 15px !important;
+                        color: rgba(255, 255, 255, 0.7) !important;
+                        font-size: 14px !important;
+                        font-weight: 500;
+                        border-radius: 8px !important;
+                        display: block !important;
+                        transition: all 0.2s ease;
 
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.05) !important;
-                        color: var(--q-gold) !important;
-                        transform: translateX(5px);
-                    }
-                    &.active {
-                        background-color: rgba(197, 160, 89, 0.1) !important;
-                        color: var(--q-gold) !important;
-                        border-left: 3px solid var(--q-gold);
+                        &:hover {
+                            background-color: rgba(255, 255, 255, 0.05) !important;
+                            color: var(--q-gold) !important;
+                            transform: translateX(5px);
+                        }
+
+                        &.active {
+                            background-color: rgba(197, 160, 89, 0.1) !important;
+                            color: var(--q-gold) !important;
+                            border-left: 3px solid var(--q-gold);
+                        }
                     }
                 }
             }
         }
 
-        // Bas de barre (Admin, Horloge)
+        // BAS DE BARRE (UTILISATEUR)
         .o_menu_systray {
+            margin-top: auto !important; // Pousse vers le bas
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px !important;
             display: flex !important;
             flex-direction: row !important;
             justify-content: space-around !important;
-            background: rgba(0,0,0,0.1) !important;
-            padding: 15px !important;
-            border-top: 1px solid rgba(255,255,255,0.05);
             
             .dropdown-toggle:after { display: none !important; }
         }
     }
 
-    // 2. ZONE DE CONTENU (ACTION MANAGER)
+    // 2. CONTENU PRINCIPAL (BOXED)
     // ------------------------------------------------------------
     .o_action_manager {
-        grid-column: 2 !important;
-        padding: 20px !important;
+        flex: 1 !important;
+        padding: 30px !important; // Espace tout autour
         display: flex !important;
         justify-content: center !important;
         align-items: flex-start !important;
 
         .o_content {
-            background: white !important;
-            border-radius: 12px !important;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+            background-color: white !important;
+            border-radius: 16px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
             border: 1px solid #eef2f6 !important;
             width: 100% !important;
             max-width: 1500px !important;
@@ -141,13 +143,12 @@ body.o_web_client {
     }
 }
 
-// 3. SCROLLBARS & BOUTONS
-// ------------------------------------------------------------
+// 3. SCROLLBAR DORÉE
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: var(--q-gold); border-radius: 10px; }
 
+// 4. SUPPRESSION VIOLET
 .btn-primary {
     background-color: var(--q-gold) !important;
     border: none !important;
-    border-radius: 4px !important;
 }
