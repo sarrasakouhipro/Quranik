@@ -1,114 +1,278 @@
-// ============================================================
-// QURANIK - MODERN HORIZONTAL LAYOUT (RETOUR AU TOP)
-// ============================================================
+/* =========================
+   QURANIK MODERN UI THEME
+   Odoo 16 Community
+========================= */
 
-:root {
-    --q-navy: #1B263B;
-    --q-gold: #C5A059;
-    --q-gold-light: rgba(197, 160, 89, 0.1);
-    --q-bg: #f5f7f9;
+/* =========================
+   1. DESIGN TOKENS
+========================= */
+
+$primary: #6366f1;
+$secondary: #0ea5e9;
+$success: #22c55e;
+$danger: #ef4444;
+$warning: #f59e0b;
+
+$bg-main: #f8fafc;
+$bg-card: #ffffff;
+$text-main: #0f172a;
+$text-muted: #64748b;
+
+$border-color: #e2e8f0;
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+
+$shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+$shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+$shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+
+/* =========================
+   2. GLOBAL
+========================= */
+
+body {
+  background: $bg-main;
+  color: $text-main;
+  font-family: "Inter", sans-serif;
 }
 
-// 1. RÉINITIALISATION DU LAYOUT GLOBAL (HORIZONTAL)
-// ------------------------------------------------------------
-body.o_web_client {
-    display: flex !important;
-    flex-direction: column !important; // Navbar en haut, Contenu en bas
-    background-color: var(--q-bg) !important;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5f5;
+  border-radius: 10px;
 }
 
-// 2. NAVBAR MODERNE (HORIZONTALE)
-// ------------------------------------------------------------
+/* =========================
+   3. NAVBAR (TOP)
+========================= */
+
 .o_main_navbar {
-    flex: 0 0 auto !important;
-    background-color: var(--q-navy) !important;
-    border-bottom: 2px solid var(--q-gold) !important;
-    color: white !important;
-    display: flex !important;
-    align-items: center !important;
-    padding: 0 15px !important;
+  background: #0f172a;
+  border-bottom: none;
+  box-shadow: $shadow-sm;
 
-    .o_menu_brand {
-        color: var(--q-gold) !important;
-        font-weight: 800 !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-right: 20px !important;
-    }
+  .o_menu_brand {
+    color: white;
+    font-weight: 600;
+  }
 
-    // On remet les menus en ligne
-    .o_menu_sections {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        
-        li > a {
-            color: rgba(255, 255, 255, 0.8) !important;
-            padding: 10px 15px !important;
-            font-weight: 500;
-            &:hover {
-                color: var(--q-gold) !important;
-                background: rgba(255, 255, 255, 0.05) !important;
-            }
-        }
-    }
+  .dropdown-toggle {
+    color: #e2e8f0;
+  }
 }
 
-// 3. ZONE DE CONTENU "BOXED" ET CENTRÉE
-// ------------------------------------------------------------
-.o_action_manager {
-    flex: 1 !important;
-    display: flex !important;
-    justify-content: center !important; // Centre la boite
-    align-items: flex-start !important;
-    padding: 25px !important; // Espace pour l'effet flottant
-    overflow: hidden !important;
+/* =========================
+   4. SIDEBAR (APPS)
+========================= */
 
-    .o_content {
-        background-color: #ffffff !important;
-        border-radius: 12px !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
-        border: 1px solid #eef2f6 !important;
-        width: 100% !important;
-        max-width: 1500px !important; // Largeur max de la zone de travail
-        height: 100% !important;
-        
-        // --- LA BARRE DE DÉFILEMENT À GAUCHE ---
-        direction: rtl !important; 
-        overflow-y: scroll !important;
-        scrollbar-gutter: stable;
+.o_app_sidebar {
+  background: #111827;
 
-        // Réaligner le contenu interne à l'endroit
-        & > * {
-            direction: ltr !important; 
-            text-align: left;
-        }
+  .o_app {
+    border-radius: $radius-md;
+    transition: all 0.2s ease;
+    padding: 10px;
+
+    &:hover {
+      background: rgba(255,255,255,0.05);
+      transform: translateX(2px);
     }
+  }
+
+  .o_app_icon {
+    filter: brightness(1.2);
+  }
 }
 
-// 4. STYLE DES BOUTONS ET SCROLLBARS
-// ------------------------------------------------------------
+/* =========================
+   5. BUTTONS
+========================= */
 
-// Boutons Quranik
+.btn {
+  border-radius: $radius-sm;
+  transition: all 0.2s ease;
+}
+
 .btn-primary {
-    background-color: var(--q-gold) !important;
-    border: none !important;
-    border-radius: 6px !important;
-    &:hover { filter: brightness(1.1); }
+  background: $primary;
+  border: none;
+
+  &:hover {
+    background: darken($primary, 5%);
+    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+  }
 }
 
-// Scrollbar fine dorée
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { 
-    background: var(--q-gold) !important; 
-    border-radius: 10px; 
+/* =========================
+   6. FORM VIEW
+========================= */
+
+.o_form_view {
+  background: $bg-main;
+
+  .o_form_sheet_bg {
+    background: transparent;
+  }
+
+  .o_form_sheet {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    padding: 24px;
+  }
+
+  /* Fields */
+  input,
+  textarea,
+  select {
+    border-radius: $radius-sm;
+    border: 1px solid $border-color;
+    padding: 10px;
+    transition: all 0.2s ease;
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+  }
+
+  /* Labels */
+  label {
+    font-weight: 500;
+    color: $text-muted;
+  }
 }
 
-// Suppression du violet dans la barre de statut
-.o_statusbar_status .o_arrow_button.state_active {
-    background-color: var(--q-navy) !important;
-    color: var(--q-gold) !important;
-    background-image: none !important;
-    &:after { border-left-color: var(--q-navy) !important; }
+/* =========================
+   7. LIST VIEW
+========================= */
+
+.o_list_view {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+
+  thead {
+    background: #f1f5f9;
+
+    th {
+      font-weight: 600;
+      color: $text-main;
+      padding: 12px;
+    }
+  }
+
+  tbody tr {
+    transition: all 0.15s;
+
+    &:hover {
+      background: #f8fafc;
+    }
+
+    td {
+      padding: 12px;
+    }
+  }
+}
+
+/* =========================
+   8. KANBAN VIEW
+========================= */
+
+.o_kanban_view {
+
+  .o_kanban_record {
+    border-radius: $radius-md;
+    box-shadow: $shadow-sm;
+    background: white;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: $shadow-md;
+    }
+  }
+}
+
+/* =========================
+   9. TABS
+========================= */
+
+.nav-tabs {
+  border-bottom: none;
+
+  .nav-link {
+    border-radius: $radius-sm;
+    margin-right: 6px;
+    color: $text-muted;
+
+    &.active {
+      background: $primary;
+      color: white;
+    }
+  }
+}
+
+/* =========================
+   10. CARDS / DASHBOARD
+========================= */
+
+.o_dashboard,
+.o_control_panel {
+  background: transparent;
+}
+
+.o_kanban_dashboard {
+  .o_kanban_record {
+    padding: 16px;
+  }
+}
+
+/* =========================
+   11. BADGES / TAGS
+========================= */
+
+.badge {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 500;
+}
+
+/* =========================
+   12. CHATTER
+========================= */
+
+.o_Chatter {
+  border-top: 1px solid $border-color;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+/* =========================
+   13. MODALS
+========================= */
+
+.modal-content {
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+}
+
+/* =========================
+   14. DARK MODE (OPTIONNEL)
+========================= */
+
+body.dark {
+  background: #0f172a;
+  color: #e2e8f0;
+
+  .o_form_sheet,
+  .o_list_view {
+    background: #1e293b;
+  }
 }
