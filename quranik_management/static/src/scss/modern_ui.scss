@@ -1,73 +1,83 @@
 // ============================================================
-// QURANIK - UNIFIED SIDEBAR (ALL MENUS VISIBLE)
+// QURANIK - SIDEBAR "ULTRA-FORCE" (VERCEL STYLE)
 // ============================================================
 
 :root {
     --q-navy: #1B263B;
     --q-gold: #C5A059;
     --q-gold-light: rgba(197, 160, 89, 0.15);
-    --q-bg: #f4f7fa;
-    --sidebar-width: 230px;
+    --q-bg-app: #f4f7f9;
+    --sidebar-width: 240px;
+    
+    --primary: var(--q-gold) !important;
 }
 
-// 1. STRUCTURE DE BASE
+// 1. RESTRUCTURATION RADICALE DU LAYOUT
 // ------------------------------------------------------------
 body.o_web_client {
     display: flex !important;
     flex-direction: row !important;
-    background-color: var(--q-bg) !important;
+    background-color: var(--q-bg-app) !important;
     overflow: hidden !important;
 
+    // LA SIDEBAR (ANCIENNE NAVBAR)
     .o_main_navbar {
         flex: 0 0 var(--sidebar-width) !important;
         width: var(--sidebar-width) !important;
         height: 100vh !important;
         background-color: var(--q-navy) !important;
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: column !important; // Alignement vertical
         border-right: 1px solid rgba(197, 160, 89, 0.1) !important;
         padding: 0 !important;
         z-index: 1000 !important;
 
-        // Brand Logo
+        // Logo Quranik
         .o_menu_brand {
-            padding: 35px 15px !important;
+            display: block !important;
+            padding: 40px 15px !important;
             color: var(--q-gold) !important;
-            font-size: 19px !important;
+            font-size: 22px !important;
             font-weight: 800 !important;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
-            display: block !important;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        // --- SOLUTION UNIFIÉE POUR TOUS LES MENUS ---
+        // --- CORE FIX : FORCER LA VISIBILITÉ DES MENUS ---
         .o_menu_sections {
             display: flex !important;
             flex-direction: column !important; // Empilement vertical
             width: 100% !important;
-            padding: 10px !important;
+            padding: 15px 10px !important;
             margin: 0 !important;
+            flex-grow: 1;
             overflow-y: auto;
+            opacity: 1 !important;
+            visibility: visible !important;
 
-            // Désactiver le bouton "More" (+)
+            // Masquer le bouton "+" d'Odoo
             .o_menu_sections_more { display: none !important; }
 
-            // Cibler TOUS les éléments (liens simples ET dropdowns)
-            li {
-                display: block !important;
+            // Cibler TOUS les types d'éléments (liens, dropdowns, etc.)
+            li, .nav-item {
+                display: block !important; // Force l'affichage
                 width: 100% !important;
-                position: static !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                position: relative !important;
 
-                // 1. Style pour les liens SIMPLES (ceux qui manquaient)
-                .o_nav_entry, a.nav-link {
+                // Liens directs (ex: Sessions, Teachers)
+                a.o_nav_entry, a.nav-link, .dropdown-toggle {
+                    display: block !important;
                     padding: 12px 15px !important;
                     color: rgba(255, 255, 255, 0.8) !important;
                     font-size: 14px !important;
                     font-weight: 500;
                     border-radius: 8px !important;
-                    display: block !important;
                     transition: all 0.2s ease;
+                    text-decoration: none !important;
 
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.05) !important;
@@ -76,32 +86,28 @@ body.o_web_client {
                     }
                 }
 
-                // 2. Style pour les SOUS-MENUS (Dropdowns)
+                // Pour les menus avec sous-menus
                 .dropdown-menu {
-                    position: static !important;
-                    display: block !important; // Reste ouvert dans la barre
-                    background-color: transparent !important;
+                    position: static !important; // Intégration directe
+                    display: block !important;   // Toujours ouvert
+                    background: transparent !important;
                     border: none !important;
                     box-shadow: none !important;
-                    padding: 0 !important;
+                    padding: 0 0 0 20px !important; // Décalage
                     margin: 0 !important;
                     float: none !important;
-                    
+
                     .dropdown-item {
-                        padding: 10px 15px 10px 30px !important; // Décalage pour hiérarchie
                         color: rgba(255, 255, 255, 0.6) !important;
                         font-size: 13px;
-                        
-                        &:hover {
-                            color: var(--q-gold) !important;
-                            background: transparent !important;
-                        }
+                        padding: 8px 15px !important;
+                        &:hover { color: var(--q-gold) !important; background: transparent !important; }
                     }
                 }
             }
         }
 
-        // Bas de barre (Systray)
+        // Profil Utilisateur en bas
         .o_menu_systray {
             margin-top: auto !important;
             background: rgba(0, 0, 0, 0.2);
@@ -113,13 +119,14 @@ body.o_web_client {
         }
     }
 
-    // 2. CONTENU BOXED
+    // 2. CONTENU PRINCIPAL (LA BOITE BLANCHE)
     // ------------------------------------------------------------
     .o_action_manager {
         flex: 1 !important;
         padding: 25px !important;
         display: flex !important;
         justify-content: center !important;
+        align-items: flex-start !important;
 
         .o_content {
             background-color: white !important;
@@ -135,10 +142,7 @@ body.o_web_client {
             overflow-y: scroll !important;
             scrollbar-gutter: stable;
 
-            & > * {
-                direction: ltr !important;
-                text-align: left;
-            }
+            & > * { direction: ltr !important; text-align: left; }
         }
     }
 }
