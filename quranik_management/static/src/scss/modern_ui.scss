@@ -1,338 +1,138 @@
 // ==========================================
-// QURANIK - VERCEL & LINEAR PREMIUM EDITION
+// QURANIK - VERCEL ULTIMATE EDITION
 // ==========================================
 
 :root {
-    --q-marine-dark: #0f172a;
-    --q-marine-nav: #1B263B;
+    --q-marine: #1B263B;
     --q-gold: #C5A059;
-    --q-gold-glow: rgba(197, 160, 89, 0.4);
-    --q-bg-app: #fcfcfd; // Fond ultra-propre
-    --glass-bg: rgba(255, 255, 255, 0.8);
-    
-    // Override Odoo
+    --q-gold-light: rgba(197, 160, 89, 0.2);
+    --q-bg-app: #f0f2f5; 
     --primary: var(--q-gold) !important;
-    --o-brand-primary: var(--q-gold) !important;
 }
 
-// 1. FOND LUMINEUX (L'effet "Spotlight" de Vercel)
+// 1. STRUCTURE GLOBALE ET CENTRAGE (LE FIX)
 // ------------------------------------------
 body.o_web_client {
     background-color: var(--q-bg-app) !important;
-    // Ajout d'un dégradé radial discret pour simuler une source lumineuse
-    background-image: radial-gradient(at 0% 0%, rgba(197, 160, 89, 0.05) 0px, transparent 50%),
-                      radial-gradient(at 100% 0%, rgba(27, 38, 59, 0.05) 0px, transparent 50%) !important;
 
     .o_action_manager {
+        // Force le centrage de la boite blanche
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; 
+        justify-content: flex-start !important;
         background: transparent !important;
-        padding: 24px !important;
+        padding: 20px !important;
+        overflow: hidden !important;
 
         .o_content {
+            // Configuration de la "Box"
+            flex: 0 1 1400px !important; // Largeur max de 1400px
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 auto !important; // Centrage horizontal
+            
+            // Design Vercel (Ombres et bords)
             background-color: #ffffff !important;
+            border-radius: 12px !important;
             border: 1px solid rgba(0, 0, 0, 0.05) !important;
-            border-radius: 16px !important;
-            // L'ombre "Vercel" : plusieurs couches très fines
-            box-shadow: 0 0 0 1px rgba(0,0,0,.03), 
-                        0 2px 4px rgba(0,0,0,.05), 
-                        0 12px 24px rgba(0,0,0,.05) !important;
-            margin: 0 auto !important;
-            max-width: 1500px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+
+            // LA BARRE DE DÉFILEMENT À GAUCHE
+            direction: rtl !important; 
+            overflow-y: scroll !important; 
+            scrollbar-gutter: stable;
+
+            // RÉALIGNEMENT DU CONTENU INTÉRIEUR
+            // Important : on remet en LTR (ou RTL si vous préférez l'arabe)
+            // sans casser le centrage de la boite
+            & > * {
+                direction: ltr !important; 
+                text-align: left;
+                width: 100% !important;
+                display: block;
+            }
         }
     }
 }
 
-// 2. NAVBAR STYLE GLASSMORPHISM
+// 2. NAVBAR MODERNE (MARINE & GOLD)
 // ------------------------------------------
 .o_main_navbar {
-    background-color: rgba(27, 38, 59, 0.95) !important; // Marine translucide
-    backdrop-filter: blur(12px); // Effet flou derrière la barre
-    border-bottom: 1px solid rgba(197, 160, 89, 0.3) !important;
-    height: 50px !important;
-    display: flex;
-    align-items: center;
+    background-color: var(--q-marine) !important;
+    border-bottom: 2px solid var(--q-gold) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 
     .o_menu_brand {
         color: var(--q-gold) !important;
         font-weight: 800 !important;
-        letter-spacing: -0.5px;
-        text-shadow: 0 0 15px var(--q-gold-glow); // Touche lumineuse
-    }
-
-    .o_nav_entry, .o_menu_sections > li > a {
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        &:hover {
-            color: var(--q-gold) !important;
-            background: transparent !important;
-        }
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 }
 
-// 3. BOUTONS AVEC EFFET DE LUMIÈRE (GLOW)
+// 3. BOUTONS LUMINEUX (STYLE VERCEL)
 // ------------------------------------------
 .btn-primary {
-    background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%) !important;
+    background: var(--q-gold) !important;
     border: none !important;
-    border-radius: 8px !important;
-    padding: 8px 18px !important;
-    color: white !important;
-    box-shadow: 0 4px 14px 0 var(--q-gold-glow) !important; // Le halo doré
-    transition: all 0.3s ease !important;
+    border-radius: 6px !important;
+    box-shadow: 0 0 15px var(--q-gold-light) !important; // Effet lumineux
+    transition: all 0.2s ease;
 
     &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px 0 var(--q-gold-glow) !important;
+        transform: translateY(-1px);
         filter: brightness(1.1);
+        box-shadow: 0 5px 20px var(--q-gold-light) !important;
     }
 }
 
-.btn-secondary {
-    background: #ffffff !important;
+.btn-secondary, .btn-outline-primary {
+    background: white !important;
     border: 1px solid #e2e8f0 !important;
-    color: var(--q-marine-nav) !important;
-    border-radius: 8px !important;
+    color: var(--q-marine) !important;
     
     &:hover {
         border-color: var(--q-gold) !important;
         color: var(--q-gold) !important;
-        background: #fcfcfd !important;
     }
 }
 
-// 4. BARRE DE STATUT (STEPS MODERNE)
+// 4. BARRE DE STATUT (PLUS DE VIOLET)
 // ------------------------------------------
 .o_statusbar_status {
-    gap: 8px; // Espace entre les flèches
-    
-    .o_arrow_button {
-        border-radius: 6px !important;
-        position: relative;
-        background: #f8fafc !important;
-        border: 1px solid #e2e8f0 !important;
-        margin-right: 5px;
-        color: #64748b !important;
-        
-        // On supprime l'ancienne flèche moche d'Odoo
-        &:after, &:before { display: none !important; }
-
-        &.state_active {
-            background: var(--q-marine-nav) !important;
-            color: var(--q-gold) !important;
-            border-color: var(--q-marine-nav) !important;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(27, 38, 59, 0.2);
-        }
+    .o_arrow_button.state_active {
+        background-color: var(--q-marine) !important;
+        color: var(--q-gold) !important;
+        font-weight: bold;
+        background-image: none !important;
+        &:after { border-left-color: var(--q-marine) !important; }
     }
 }
 
-// 5. CHAMPS DE FORMULAIRE (FOCUS LUMINEUX)
+// 5. SCROLLBAR FINE ET DORÉE (GHOST STYLE)
 // ------------------------------------------
-input.o_field_widget, select.o_field_widget, textarea.o_field_widget {
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 8px !important;
-    padding: 10px !important;
-    transition: all 0.2s ease !important;
-
-    &:focus {
-        border-color: var(--q-gold) !important;
-        box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15) !important; // Halo au focus
-        outline: none !important;
-    }
+.o_content::-webkit-scrollbar {
+    width: 5px !important;
 }
 
-// 6. BADGES ET TAGS
-// ------------------------------------------
-.badge-primary {
-    background: rgba(197, 160, 89, 0.1) !important;
-    color: var(--q-gold) !important;
-    border: 1px solid rgba(197, 160, 89, 0.2) !important;
-    backdrop-filter: blur(4px);
-}
-
-
-// ==========================================
-// FIX : MENUS DÉROULANTS & SCROLLBARS (MODERNE)
-// ==========================================
-
-// 1. STYLE DES MENUS DÉROULANTS (Dropdowns)
-// ------------------------------------------
-.dropdown-menu {
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
-    padding: 8px !important;
-    background-color: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(10px);
-    margin-top: 10px !important; // Décale un peu le menu pour l'effet "flottant"
-
-    .dropdown-item {
-        border-radius: 6px !important;
-        padding: 8px 12px !important;
-        color: var(--q-marine-nav) !important;
-        font-size: 13px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-
-        &:hover {
-            background-color: rgba(197, 160, 89, 0.1) !important; // Fond doré très léger
-            color: var(--q-gold) !important;
-            transform: translateX(3px); // Petit décalage élégant au survol
-        }
-
-        &.active {
-            background-color: var(--q-gold) !important;
-            color: white !important;
-        }
-    }
-}
-
-// 2. MODERNISATION DE LA SCROLLBAR (Style Vercel/Mac)
-// ------------------------------------------
-// On rend la barre de défilement très fine et discrète
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-::-webkit-scrollbar-track {
+.o_content::-webkit-scrollbar-track {
     background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-    background: #e2e8f0; // Gris très clair
+.o_content::-webkit-scrollbar-thumb {
+    background: var(--q-gold) !important;
     border-radius: 10px;
     &:hover {
-        background: var(--q-gold); // Devient dorée quand on l'approche
+        background: var(--q-marine) !important;
     }
 }
 
-// 3. FIX SPÉCIFIQUE POUR LE MENU DES APPS (L'icône carrée)
+// 6. MENUS DÉROULANTS FLOTTANTS
 // ------------------------------------------
-.o_navbar_apps_menu {
-    .dropdown-menu {
-        background-color: var(--q-marine-nav) !important; // Menu des apps en Marine
-        border: 1px solid rgba(197, 160, 89, 0.2) !important;
-        
-        .dropdown-item {
-            color: rgba(255, 255, 255, 0.8) !important;
-            &:hover {
-                background-color: rgba(255, 255, 255, 0.1) !important;
-                color: var(--q-gold) !important;
-            }
-        }
-    }
-}
-
-// 4. NETTOYAGE DES SÉPARATEURS
-// ------------------------------------------
-.dropdown-divider {
-    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
-    margin: 4px 0 !important;
-}
-
-// ==========================================
-// SCROLLBAR : TOUJOURS VISIBLE ET À GAUCHE
-// ==========================================
-
-body.o_web_client {
-    // 1. Déplacement de la scrollbar à gauche pour le contenu principal
-    .o_action_manager .o_content {
-        overflow-y: scroll !important; // Toujours visible
-        direction: rtl !important;    // Inverse la direction (met la barre à gauche)
-        scrollbar-gutter: stable;      // Réserve l'espace pour éviter les sauts de mise en page
-        
-        // On remet le contenu à l'endroit (LTR) pour que le texte ne soit pas inversé
-        // Si votre projet est principalement en Arabe, remplacez 'ltr' par 'rtl' ici.
-        > * {
-            direction: ltr !important; 
-            text-align: left;
-        }
-    }
-
-    // 2. Style de la scrollbar (Vercel Style)
-    // On la rend fine pour qu'elle ne soit pas intrusive à gauche
-    .o_content::-webkit-scrollbar {
-        width: 6px !important;
-    }
-
-    .o_content::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.02) !important;
-        border-radius: 10px;
-    }
-
-    .o_content::-webkit-scrollbar-thumb {
-        background: var(--q-gold) !important; // Elle reste dorée
-        border-radius: 10px;
-        border: 1px solid transparent;
-        background-clip: content-box;
-        
-        &:hover {
-            background: var(--q-marine-nav) !important; // Devient marine au survol
-        }
-    }
-}
-
-// 3. Cas particulier pour les menus déroulants (dropdowns)
-// Si vous voulez aussi la barre à gauche dans les menus
 .dropdown-menu {
-    direction: rtl !important;
-    overflow-y: auto !important;
-    max-height: 400px;
-    
-    .dropdown-item {
-        direction: ltr !important;
-        text-align: left;
-    }
-}
-
-// ==========================================
-// STRUCTURE CENTRÉE (BOXED) AVEC BARRE À GAUCHE
-// ==========================================
-
-body.o_web_client {
-    // On s'assure que le fond couvre tout
-    background-color: var(--q-bg-app) !important;
-
-    .o_action_manager {
-        display: flex !important;
-        justify-content: center !important; // CENTRE HORIZONTALEMENT
-        align-items: flex-start !important; // Aligne en haut
-        background: transparent !important;
-        padding: 20px !important;
-        height: 100% !important;
-        width: 100% !important;
-
-        .o_content {
-            // 1. LA BOITE CENTRÉE
-            flex: 0 1 1500px !important; // Largeur max 1500px, mais peut rétrécir
-            width: 100% !important;
-            margin: 0 auto !important; // Sécurité pour le centrage
-            
-            // 2. LA BARRE À GAUCHE
-            overflow-y: scroll !important; 
-            direction: rtl !important; // Déplace la barre à gauche
-            
-            // 3. DESIGN DE LA BOITE
-            background-color: #ffffff !important;
-            border-radius: 16px !important;
-            border: 1px solid rgba(0, 0, 0, 0.05) !important;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
-            
-            // 4. RÉALIGNER LE CONTENU INTÉRIEUR
-            // On remet le contenu en 'ltr' (ou 'rtl' si vous travaillez en Arabe)
-            // Mais on s'assure qu'il prend toute la largeur
-            > * {
-                direction: ltr !important; // Remplacez par rtl si l'interface doit être en Arabe
-                text-align: inherit;
-                width: 100% !important;
-            }
-        }
-    }
-}
-
-// Optionnel : Si vous voulez que la barre soit encore plus discrète 
-// pour ne pas gêner le contenu centré à gauche
-.o_content::-webkit-scrollbar {
-    width: 4px !important; // Plus fine
+    border: none !important;
+    border-radius: 10px !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+    padding: 8px !important;
 }
